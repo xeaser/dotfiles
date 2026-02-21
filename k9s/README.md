@@ -25,7 +25,7 @@
 
 ## Clusters Directory
 
-The `clusters/` directory is **not tracked** (gitignored) because it contains machine-specific cluster configurations with AWS ARNs, account IDs, and context-specific namespace favorites.
+The `clusters/` directory is not tracked because it contains machine-specific cluster configurations.
 
 k9s auto-generates cluster configs when you connect to a cluster. The structure is:
 
