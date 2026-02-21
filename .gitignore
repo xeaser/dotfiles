@@ -19,5 +19,8 @@ opencode/*.lock
 opencode/*.lockb
 opencode/*.map
 
+# nvim
+nvim/lazyvim.json
+
 # backups
 .dotfiles_backup/
