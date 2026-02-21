@@ -36,7 +36,7 @@ git clone https://github.com/xeaser/dotfiles.git ~/dotfiles && cd ~/dotfiles && 
 │   ├── aliases.yaml      # Resource navigation shortcuts
 │   ├── views.yaml        # Custom column layouts for pods
 │   └── clusters/
-│       └── example-cluster.yaml  # Template (real clusters gitignored)
+│       └── example-cluster.yaml  # Template
 ├── opencode/             # opencode AI coding assistant
 │   ├── opencode.jsonc    # Main config: plugins, MCP servers, providers
 │   ├── ocx.jsonc         # OCX extension manager config
