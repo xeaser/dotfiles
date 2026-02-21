@@ -4,15 +4,18 @@ set -euo pipefail
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKUP_DIR="$HOME/.dotfiles_backup/$(date +%Y%m%d_%H%M%S)"
 DRY_RUN=false
+SKIP_BREW=false
 
 # -- Parse arguments -----------------------------------------------------------
 
 for arg in "$@"; do
     case "$arg" in
         --dry-run|--check) DRY_RUN=true ;;
+        --skip-brew) SKIP_BREW=true ;;
         --help|-h)
-            printf "Usage: ./install.sh [--dry-run]\n"
+            printf "Usage: ./install.sh [--dry-run] [--skip-brew]\n"
             printf "  --dry-run, --check   Show what would be installed/linked without making changes\n"
+            printf "  --skip-brew          Skip Homebrew installation and brew bundle\n"
             exit 0
             ;;
         *) printf "Unknown argument: %s\n" "$arg"; exit 1 ;;
@@ -97,54 +100,64 @@ fi
 
 # -- Homebrew ------------------------------------------------------------------
 
-section "Homebrew"
-
-if ! command -v brew &>/dev/null; then
-    if $DRY_RUN; then
-        missing "Homebrew"
-    else
-        info "Installing Homebrew..."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-        info "Homebrew installed"
-    fi
+if $SKIP_BREW; then
+    section "Homebrew (skipped)"
+    skip "Homebrew (--skip-brew)"
 else
-    if $DRY_RUN; then
-        ok "Homebrew ($(brew --version | head -1))"
+    section "Homebrew"
+
+    if ! command -v brew &>/dev/null; then
+        if $DRY_RUN; then
+            missing "Homebrew"
+        else
+            info "Installing Homebrew..."
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+            info "Homebrew installed"
+        fi
     else
-        skip "Homebrew already installed"
+        if $DRY_RUN; then
+            ok "Homebrew ($(brew --version | head -1))"
+        else
+            skip "Homebrew already installed"
+        fi
     fi
 fi
 
 # -- Brew bundle ---------------------------------------------------------------
 
-section "Brew Packages"
+if $SKIP_BREW; then
+    section "Brew Packages (skipped)"
+    skip "Brew packages (--skip-brew)"
+else
+    section "Brew Packages"
 
-if $DRY_RUN; then
-    if [ -f "$DOTFILES_DIR/Brewfile" ]; then
-        pkg_count=$(grep -c "^[bt][ar][pe]w" "$DOTFILES_DIR/Brewfile" 2>/dev/null || echo "?")
-        ok "Brewfile found ($pkg_count packages)"
-        brew_missing=$(timeout 15 brew bundle check --file="$DOTFILES_DIR/Brewfile" 2>&1 || true)
-        if echo "$brew_missing" | grep -q "satisfied"; then
-            ok "All Brewfile packages installed"
-        elif echo "$brew_missing" | grep -q "needs to be installed"; then
-            echo "$brew_missing" | grep "needs to be installed" | while read -r line; do
-                missing "$line"
-            done
+    if $DRY_RUN; then
+        if [ -f "$DOTFILES_DIR/Brewfile" ]; then
+            pkg_count=$(grep -c "^[bt][ar][pe]w" "$DOTFILES_DIR/Brewfile" 2>/dev/null || echo "?")
+            ok "Brewfile found ($pkg_count packages)"
+            brew_missing=$(timeout 15 brew bundle check --file="$DOTFILES_DIR/Brewfile" 2>&1 || true)
+            if echo "$brew_missing" | grep -q "satisfied"; then
+                ok "All Brewfile packages installed"
+            elif echo "$brew_missing" | grep -q "needs to be installed"; then
+                echo "$brew_missing" | grep "needs to be installed" | while read -r line; do
+                    missing "$line"
+                done
+            else
+                printf "${YELLOW}  [slow]${NC}       brew bundle check timed out (run manually: brew bundle check --file=Brewfile)\n"
+            fi
         else
-            printf "${YELLOW}  [slow]${NC}       brew bundle check timed out (run manually: brew bundle check --file=Brewfile)\n"
+            missing "Brewfile not found"
         fi
     else
-        missing "Brewfile not found"
-    fi
-else
-    if [ -f "$DOTFILES_DIR/Brewfile" ]; then
-        info "Installing Homebrew packages from Brewfile..."
-        brew bundle install --file="$DOTFILES_DIR/Brewfile"
-        info "Brew bundle complete"
+        if [ -f "$DOTFILES_DIR/Brewfile" ]; then
+            info "Installing Homebrew packages from Brewfile..."
+            brew bundle install --file="$DOTFILES_DIR/Brewfile"
+            info "Brew bundle complete"
     else
         error "Brewfile not found at $DOTFILES_DIR/Brewfile"
     fi
+fi
 fi
 
 # -- Oh My Zsh -----------------------------------------------------------------
