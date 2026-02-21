@@ -31,6 +31,10 @@ git clone https://github.com/xeaser/dotfiles.git ~/dotfiles && cd ~/dotfiles && 
 │   └── kitty.conf
 ├── git/                  # Git config
 │   └── .gitconfig
+├── examples/             # Project-local config examples
+│   ├── .nvim.lua         # Per-project Neovim DAP config
+│   ├── .envrc            # Per-project direnv env vars
+│   └── README.md
 ├── Brewfile              # Homebrew packages
 ├── install.sh            # Idempotent setup script
 ├── .secrets.example      # Template for secrets
