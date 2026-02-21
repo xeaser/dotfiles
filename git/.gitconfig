@@ -1,0 +1,12 @@
+[init]
+	templateDir = /Users/psharma/.git-templates/git-secrets
+[secrets]
+	providers = opscore security run git-secrets-provider -q
+[gpg]
+	format = ssh
+[user]
+	signingkey = /Users/psharma/.ssh/id_ed25519.pub
+	name = Parag Sharma
+	email = sharmarag93@gmail.com
+[commit]
+	gpgsign = true

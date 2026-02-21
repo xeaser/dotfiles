@@ -1,0 +1,8 @@
+.DS_Store
+*.swp
+*.swo
+*~
+.secrets
+.zsh_history
+.zcompdump*
+.zsh_sessions/
