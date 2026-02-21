@@ -2,7 +2,7 @@
 
 Development environment managed with symlinks and a single install script. Primarily macOS, with Linux support (see below).
 
-![screenshot placeholder](screenshot.png)
+![Terminal setup - kitty + tmux + nvim](screenshot.png)
 
 ## Quick Install
 
