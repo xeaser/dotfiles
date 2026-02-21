@@ -1,0 +1,71 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": {
+      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1-1m",
+      "variant": "max"
+    },
+    "hephaestus": {
+      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "variant": "medium"
+    },
+    "oracle": {
+      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "variant": "high"
+    },
+    "librarian": {
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-5-20250929-v1:0-1m"
+    },
+    "explore": {
+      "model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0"
+    },
+    "prometheus": {
+      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1-1m",
+      "variant": "max"
+    },
+    "metis": {
+      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "variant": "max"
+    },
+    "momus": {
+      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "variant": "medium"
+    },
+    "atlas": {
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-5-20250929-v1:0-1m"
+    }
+  },
+  "disabled_hooks": [
+    "anthropic-context-window-limit-recovery"
+  ],
+  "categories": {
+    "visual-engineering": {
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-5-20250929-v1:0"
+    },
+    "ultrabrain": {
+      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "variant": "max"
+    },
+    "deep": {
+      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "variant": "medium"
+    },
+    "artistry": {
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-5-20250929-v1:0",
+      "variant": "high"
+    },
+    "quick": {
+      "model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0"
+    },
+    "unspecified-low": {
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-5-20250929-v1:0"
+    },
+    "unspecified-high": {
+      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "variant": "max"
+    },
+    "writing": {
+      "model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0"
+    }
+  }
+}

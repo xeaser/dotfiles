@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@opencode-ai/plugin": "0.0.0-fix/bedrock-1m-context-split-202602210403"
+  },
+  "devDependencies": {
+    "jsonc-parser": "3.3.1",
+    "zod": "4.3.5"
+  }
+}

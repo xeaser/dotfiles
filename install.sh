@@ -284,6 +284,36 @@ if [ -f "$DOTFILES_DIR/git/.gitconfig" ]; then
     backup_and_link "$DOTFILES_DIR/git/.gitconfig"      "$HOME/.gitconfig"
 fi
 
+# k9s (individual config files, not clusters/)
+mkdir -p "$HOME/.config/k9s" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/k9s/config.yaml"         "$HOME/.config/k9s/config.yaml"
+backup_and_link "$DOTFILES_DIR/k9s/aliases.yaml"         "$HOME/.config/k9s/aliases.yaml"
+backup_and_link "$DOTFILES_DIR/k9s/views.yaml"           "$HOME/.config/k9s/views.yaml"
+
+# opencode (individual files and directories, not plugin/mcp)
+mkdir -p "$HOME/.config/opencode" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/opencode/opencode.jsonc"      "$HOME/.config/opencode/opencode.jsonc"
+backup_and_link "$DOTFILES_DIR/opencode/ocx.jsonc"           "$HOME/.config/opencode/ocx.jsonc"
+backup_and_link "$DOTFILES_DIR/opencode/oh-my-opencode.json" "$HOME/.config/opencode/oh-my-opencode.json"
+backup_and_link "$DOTFILES_DIR/opencode/dcp.jsonc"           "$HOME/.config/opencode/dcp.jsonc"
+backup_and_link "$DOTFILES_DIR/opencode/package.json"        "$HOME/.config/opencode/package.json"
+
+mkdir -p "$HOME/.config/opencode/commands" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/opencode/commands/ci.md"      "$HOME/.config/opencode/commands/ci.md"
+backup_and_link "$DOTFILES_DIR/opencode/commands/pr.md"      "$HOME/.config/opencode/commands/pr.md"
+
+mkdir -p "$HOME/.config/opencode/skills/aws-sso-reauth" 2>/dev/null || true
+mkdir -p "$HOME/.config/opencode/skills/ci-status" 2>/dev/null || true
+mkdir -p "$HOME/.config/opencode/skills/pr-status" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/opencode/skills/aws-sso-reauth/SKILL.md" "$HOME/.config/opencode/skills/aws-sso-reauth/SKILL.md"
+backup_and_link "$DOTFILES_DIR/opencode/skills/ci-status/SKILL.md"      "$HOME/.config/opencode/skills/ci-status/SKILL.md"
+backup_and_link "$DOTFILES_DIR/opencode/skills/pr-status/SKILL.md"      "$HOME/.config/opencode/skills/pr-status/SKILL.md"
+
+mkdir -p "$HOME/.config/opencode/profiles/default" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/opencode/profiles/default/AGENTS.md"       "$HOME/.config/opencode/profiles/default/AGENTS.md"
+backup_and_link "$DOTFILES_DIR/opencode/profiles/default/ocx.jsonc"       "$HOME/.config/opencode/profiles/default/ocx.jsonc"
+backup_and_link "$DOTFILES_DIR/opencode/profiles/default/opencode.jsonc"  "$HOME/.config/opencode/profiles/default/opencode.jsonc"
+
 # -- Secrets -------------------------------------------------------------------
 
 section "Secrets"

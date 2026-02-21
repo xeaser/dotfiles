@@ -1,0 +1,26 @@
+views:
+  v1/pods:
+    sortColumn: AGE:desc
+    columns:
+      - AGE
+      - NAMESPACE|WR
+      - NAME
+      - VERSION:.spec.containers[0].image|split(":")|.[-1]
+      - APP:.metadata.labels.app|W
+      - COMPONENT:.metadata.labels.component|W
+      - SUBSYSTEM:.metadata.labels.subsystem|W
+      - PF
+      - STATUS
+      - READY
+      - RESTARTS
+      - LAST RESTART|W
+      - MEM/RL|S
+      - MEM
+      - '%MEM/R|'
+      - '%MEM/L|'
+      - CPU/RL|S
+      - CPU
+      - '%CPU/R|'
+      - '%CPU/L|'
+      - IP
+      - NODE|W

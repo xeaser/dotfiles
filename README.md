@@ -31,6 +31,24 @@ git clone https://github.com/xeaser/dotfiles.git ~/dotfiles && cd ~/dotfiles && 
 │   └── kitty.conf
 ├── git/                  # Git config
 │   └── .gitconfig
+├── k9s/                  # k9s Kubernetes terminal UI
+│   ├── config.yaml       # Global settings, UI, logger, thresholds
+│   ├── aliases.yaml      # Resource navigation shortcuts
+│   ├── views.yaml        # Custom column layouts for pods
+│   └── clusters/
+│       └── example-cluster.yaml  # Template (real clusters gitignored)
+├── opencode/             # opencode AI coding assistant
+│   ├── opencode.jsonc    # Main config: plugins, MCP servers, providers
+│   ├── ocx.jsonc         # OCX extension manager config
+│   ├── oh-my-opencode.json  # Agent model routing
+│   ├── dcp.jsonc         # Dynamic context pruning config
+│   ├── package.json      # Plugin dependencies
+│   ├── commands/         # Slash commands (/ci, /pr)
+│   ├── skills/           # Reusable agent skills
+│   │   ├── aws-sso-reauth/
+│   │   ├── ci-status/
+│   │   └── pr-status/
+│   └── profiles/default/ # Default profile overrides
 ├── examples/             # Project-local config examples
 │   ├── .nvim.lua         # Per-project Neovim DAP config
 │   ├── .envrc            # Per-project direnv env vars
@@ -59,6 +77,8 @@ Shows a color-coded report: green = installed, red = missing, blue = needs linki
 | **tmux** | oh-my-tmux with gruvbox theme, gitmux status, spotify, session management via sesh |
 | **nvim** | LazyVim with gruvbox-material, avante (AI), neotest, DAP, opencode.nvim, project manager |
 | **kitty** | Gruvbox dark theme, Nerd Fonts, powerline tabs |
+| **k9s** | Kubernetes terminal UI with custom aliases (dp, sec, jo), pod column layouts with image versions and resource usage |
+| **opencode** | AI coding assistant with oh-my-opencode model routing, MCP servers (postgres, GitHub, Atlassian, JetBrains, Obsidian), custom skills (AWS SSO, CI status, PR status), slash commands |
 | **brew** | All packages captured in Brewfile |
 
 ## Secrets Management

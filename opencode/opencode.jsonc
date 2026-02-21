@@ -1,0 +1,116 @@
+{
+  "plugin": [
+    "oh-my-opencode@latest",
+    "/Volumes/Work/Exp/opencode-obsidian-sync/plugin",
+    "@tarquinen/opencode-dcp@latest",
+    "@nick-vi/opencode-type-inject",
+    "opencode-pty",
+    "opencode-wakatime",
+    "opencode-helicone-session",
+    "opencode-scheduler",
+    "opencode-supermemory"
+  ],
+  "instructions": [
+    "~/.config/opencode/plugin/shell-strategy/shell_strategy.md",
+  ],
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "postgres": {
+      "type": "local",
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "mcp/postgres",
+        "postgresql://postgres:YOUR_PASSWORD@host.docker.internal:5432/your_db"
+      ],
+      "enabled": true
+    },
+    "postgres_rw": {
+      "type": "local",
+      "command": [
+        "node",
+        "/Users/psharma/.config/opencode/mcp/postgres-rw/index.js",
+        "postgresql://postgres:YOUR_PASSWORD@host.docker.internal:5432/your_db"
+      ],
+      "enabled": false
+    },
+    "rovo": {
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/mcp",
+      "enabled": true
+    },
+    "github": {
+      "type": "remote",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer {env:GITHUB_PAT}",
+        "X-MCP-Insiders": "true"
+      },
+      "enabled": true
+    },
+    "unify": {
+      "type": "local",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-i",
+        "--env=CLOUDBEES_PERSONAL_ACCESS_TOKEN",
+        "cloudbees/unify-mcp-server:latest",
+        "stdio",
+        "--organization-id=YOUR_ORG_ID"
+      ],
+      "enabled": true
+    },
+    "jetbrains": {
+      "type": "remote",
+      "url": "http://localhost:64342/sse",
+      "enabled": true
+    },
+    "jetbrains-pycharm": {
+      "type": "remote",
+      "url": "http://localhost:64343/sse",
+      "enabled": true
+    },
+    "aifr-preprod": {
+      "type": "remote",
+      "url": "https://aifr.saas-preprod.beescloud.com/mcp",
+      "headers": {
+        "Authorization": "Bearer {env:AIFR_PREPROD_TOKEN}"
+      },
+      "enabled": false
+    },
+    "obsidian": {
+      "type": "local",
+      "command": [
+        "npx",
+        "obsidian-mcp-server"
+      ],
+      "environment": {
+        "OBSIDIAN_API_KEY": "{env:OBSIDIAN_API_KEY}",
+        "OBSIDIAN_BASE_URL": "http://127.0.0.1:27123",
+        "OBSIDIAN_VERIFY_SSL": "false",
+        "OBSIDIAN_ENABLE_CACHE": "true"
+      },
+      "enabled": true
+    },
+    "cloudbees": {
+      "type": "remote",
+      "url": "http://localhost:9090/mcp/v1/",
+      "headers": {
+        "X-Org-Id": "YOUR_ORG_ID"
+      },
+      "enabled": false
+    }
+  },
+  "provider": {
+    "amazon-bedrock": {
+      "options": {
+        "region": "us-east-1",
+        "profile": "cb-bedrock"
+      },
+    }
+  }
+}

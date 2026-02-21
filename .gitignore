@@ -6,3 +6,15 @@
 .zsh_history
 .zcompdump*
 .zsh_sessions/
+
+# k9s
+k9s/clusters/
+!k9s/clusters/example-cluster.yaml
+
+# opencode
+opencode/node_modules/
+opencode/plugin/
+opencode/mcp/
+opencode/*.lock
+opencode/*.lockb
+opencode/*.map
