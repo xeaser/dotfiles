@@ -18,3 +18,6 @@ opencode/mcp/
 opencode/*.lock
 opencode/*.lockb
 opencode/*.map
+
+# backups
+.dotfiles_backup/
