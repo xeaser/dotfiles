@@ -1,7 +1,7 @@
 {
   "plugin": [
     "oh-my-opencode@latest",
-    "/Volumes/Work/Exp/opencode-obsidian-sync/plugin",
+    "@xeaser/opencode-obsidian-sync",
     "@tarquinen/opencode-dcp@latest",
     "@nick-vi/opencode-type-inject",
     "opencode-pty",

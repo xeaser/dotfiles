@@ -1,6 +1,6 @@
 # dotfiles
 
-macOS development environment managed with symlinks and a single install script.
+Development environment managed with symlinks and a single install script. Primarily macOS, with Linux support (see below).
 
 ![screenshot placeholder](screenshot.png)
 
@@ -126,3 +126,31 @@ Sourced automatically by `.zshrc`.
 | `leader + pp` | Browse projects |
 | `leader + oo` | Toggle opencode |
 | `Ctrl+h/j/k/l` | Navigate splits (tmux-aware) |
+
+## Linux Support
+
+The setup is primarily macOS but works on Linux with `--skip-brew`:
+
+```bash
+./install.sh --skip-brew
+```
+
+This skips Homebrew and installs all symlinks, clones oh-my-zsh, plugins, oh-my-tmux, and powerlevel10k.
+
+**Install packages manually on Linux** using your distro's package manager before running the script:
+
+```bash
+# Debian/Ubuntu
+sudo apt install zsh tmux neovim fzf kitty git curl
+
+# Arch
+sudo pacman -S zsh tmux neovim fzf kitty git curl
+```
+
+Then install tools not in distro repos (zoxide, atuin, sesh, gitmux, lazygit, direnv) via their official install instructions or Homebrew for Linux.
+
+**macOS-only features** (skipped automatically on Linux):
+- `toggleNotch`, `volUp` aliases (osascript)
+- Spotify status in tmux (requires osascript)
+- `macos_option_as_alt` in kitty
+- Homebrew casks (GUI apps)
