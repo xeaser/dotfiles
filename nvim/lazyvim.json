@@ -9,7 +9,8 @@
     "lazyvim.plugins.extras.lang.docker",
     "lazyvim.plugins.extras.lang.markdown",
     "lazyvim.plugins.extras.lang.typescript",
-    "lazyvim.plugins.extras.editor.fzf"
+    "lazyvim.plugins.extras.editor.fzf",
+    "lazyvim.plugins.extras.editor.neo-tree"
   ],
   "install_version": 8,
   "news": {
