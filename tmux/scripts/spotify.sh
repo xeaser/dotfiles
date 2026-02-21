@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+if [ "$(uname)" != "Darwin" ]; then
+  exit 0
+fi
+
 if ! pgrep -xq "Spotify"; then
   exit 0
 fi

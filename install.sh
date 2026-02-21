@@ -86,11 +86,16 @@ backup_and_link() {
     info "Linked $dest -> $src"
 }
 
-# -- Pre-flight: macOS check ---------------------------------------------------
+# -- OS detection --------------------------------------------------------------
 
-if [ "$(uname)" != "Darwin" ]; then
-    error "This script is intended for macOS only."
-    exit 1
+IS_MACOS=false
+IS_LINUX=false
+
+if [ "$(uname)" = "Darwin" ]; then
+    IS_MACOS=true
+elif [ "$(uname)" = "Linux" ]; then
+    IS_LINUX=true
+    SKIP_BREW=true
 fi
 
 if $DRY_RUN; then
@@ -112,7 +117,11 @@ else
         else
             info "Installing Homebrew..."
             /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-            eval "$(/opt/homebrew/bin/brew shellenv)"
+            if $IS_MACOS; then
+                eval "$(/opt/homebrew/bin/brew shellenv)"
+            else
+                eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+            fi
             info "Homebrew installed"
         fi
     else
@@ -356,7 +365,7 @@ for tool in "${cli_tools[@]}"; do
     if command -v "$tool" &>/dev/null; then
         if $DRY_RUN; then ok "$tool ($(command -v "$tool"))"; fi
     else
-        if $DRY_RUN; then missing "$tool (install via Brewfile)"; fi
+        if $DRY_RUN; then missing "$tool (install via Brewfile or package manager)"; fi
     fi
 done
 
