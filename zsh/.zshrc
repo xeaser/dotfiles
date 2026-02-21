@@ -81,7 +81,7 @@ alias opencode='AWS_PROFILE=cb-bedrock opencode'
 alias opencode-dev="AWS_PROFILE=cb-bedrock ~/.local/bin/opencode-dev"
 alias jira='jiratui ui'
 alias mcpinspect='npx @modelcontextprotocol/inspector'
-alias tdaily='tmux a -t daily'
+alias tdaily='~/.tmux/sessions/daily.sh'
 alias toggleNotch=$'open \'xyz.kondor.znotch://v1/manage?action=toggle'\'
 alias volUp='osascript -e "set volume input volume 100"'
 

@@ -251,6 +251,9 @@ backup_and_link "$DOTFILES_DIR/tmux/.gitmux.conf"       "$HOME/.gitmux.conf"
 mkdir -p "$HOME/.tmux/scripts" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/tmux/scripts/spotify.sh" "$HOME/.tmux/scripts/spotify.sh"
 
+mkdir -p "$HOME/.tmux/sessions" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/tmux/sessions/daily.sh"  "$HOME/.tmux/sessions/daily.sh"
+
 if $DRY_RUN; then
     local_nvim="$HOME/.config/nvim"
     if [ -L "$local_nvim" ] && [ "$(readlink "$local_nvim")" = "$DOTFILES_DIR/nvim" ]; then

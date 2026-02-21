@@ -50,3 +50,18 @@ Prefix is `Ctrl+a` (rebound from default `Ctrl+b`).
 | `prefix + I` | Install TPM plugins |
 | `prefix + u` | Update TPM plugins |
 | `Ctrl+h/j/k/l` | Navigate panes (vim-tmux-navigator) |
+| `tdaily` | Launch/attach daily session (alias) |
+
+## Sessions
+
+Session layout scripts live in `sessions/`. These recreate named tmux sessions with predefined windows and commands.
+
+### daily
+
+Six-window dev session: general shell, k9s, nvim, jira, homelab SSH, opencode.
+
+```bash
+./sessions/daily.sh    # Creates and attaches (or attaches if exists)
+```
+
+The `tdaily` alias in `.zshrc` points to this script. Add more session scripts as needed following the same pattern.
