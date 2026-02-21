@@ -41,6 +41,16 @@ git clone https://github.com/xeaser/dotfiles.git ~/dotfiles && cd ~/dotfiles && 
 └── .gitignore
 ```
 
+## Dry Run
+
+Check what needs to be installed or linked without making any changes:
+
+```bash
+./install.sh --dry-run
+```
+
+Shows a color-coded report: green = installed, red = missing, blue = needs linking, yellow = wrong symlink target. Includes a summary count at the end.
+
 ## What's Included
 
 | Tool | Description |
