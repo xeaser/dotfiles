@@ -24,9 +24,22 @@ git clone https://github.com/xeaser/dotfiles.git ~/dotfiles && cd ~/dotfiles && 
 │       └── spotify.sh
 ├── nvim/                 # LazyVim-based Neovim config
 │   ├── init.lua
+│   ├── lazy-lock.json    # Plugin version lockfile
+│   ├── cheatsheet.md     # Keybinding reference
 │   └── lua/
 │       ├── config/
+│       │   ├── lazy.lua      # Plugin manager + 21 LazyVim extras
+│       │   └── options.lua   # exrc, session options
 │       └── plugins/
+│           ├── avante.lua        # AI assistant (Claude)
+│           ├── coffebar.lua      # Project manager (fzf-lua)
+│           ├── colorscheme.lua   # Gruvbox-material + 4 themes
+│           ├── dap.lua           # Debug adapter UI layout
+│           ├── neotest.lua       # Test runner (Go, Python, Jest)
+│           ├── noice.lua         # Command line position
+│           ├── opencode.lua      # opencode.nvim integration
+│           ├── treesitter.lua    # Syntax + incremental selection
+│           └── vim-tmux-navigator.lua
 ├── kitty/                # Kitty terminal config
 │   └── kitty.conf
 ├── git/                  # Git config
@@ -75,7 +88,7 @@ Shows a color-coded report: green = installed, red = missing, blue = needs linki
 |------|-------------|
 | **zsh** | Oh My Zsh + Powerlevel10k with fzf-tab, autosuggestions, fast-syntax-highlighting, atuin, zoxide, direnv |
 | **tmux** | oh-my-tmux with gruvbox theme, gitmux status, spotify, session management via sesh |
-| **nvim** | LazyVim with gruvbox-material, avante (AI), neotest, DAP, opencode.nvim, project manager |
+| **nvim** | LazyVim with 21 extras: gruvbox-material theme, NeoTree, DAP debugging, neotest, illuminate, aerial, navic, indent-blankline, avante (AI), opencode.nvim, project manager. See [cheatsheet](nvim/cheatsheet.md) |
 | **kitty** | Gruvbox dark theme, Nerd Fonts, powerline tabs |
 | **k9s** | Kubernetes terminal UI with custom aliases (dp, sec, jo), pod column layouts with image versions and resource usage |
 | **opencode** | AI coding assistant with oh-my-opencode model routing, MCP servers (postgres, GitHub, Atlassian, JetBrains, Obsidian), custom skills (AWS SSO, CI status, PR status), slash commands |
@@ -124,8 +137,18 @@ Sourced automatically by `.zshrc`.
 | `leader + tt` | Run nearest test |
 | `leader + td` | Debug nearest test |
 | `leader + pp` | Browse projects |
+| `leader + ph` | Project history |
 | `leader + oo` | Toggle opencode |
+| `leader + z` | Project debug configs (per-project .nvim.lua) |
+| `leader + db` | Toggle breakpoint |
+| `leader + dc` | Start/continue debugging |
+| `leader + e` | Toggle NeoTree file explorer |
+| `leader + cs` | Toggle aerial symbols sidebar |
+| `leader + rs` | Refactoring picker |
+| `leader + uC` | Colorscheme picker |
 | `Ctrl+h/j/k/l` | Navigate splits (tmux-aware) |
+
+> Full keybinding reference: [nvim/cheatsheet.md](nvim/cheatsheet.md)
 
 ## Linux Support
 
