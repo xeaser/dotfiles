@@ -23,7 +23,7 @@
         "-i",
         "--rm",
         "mcp/postgres",
-        "postgresql://postgres:YOUR_PASSWORD@host.docker.internal:5432/your_db"
+        "postgresql://postgres:{env:POSTGRES_PASSWORD}@host.docker.internal:5432/{env:POSTGRES_DB}"
       ],
       "enabled": true
     },
@@ -32,7 +32,7 @@
       "command": [
         "node",
         "/Users/psharma/.config/opencode/mcp/postgres-rw/index.js",
-        "postgresql://postgres:YOUR_PASSWORD@host.docker.internal:5432/your_db"
+        "postgresql://postgres:{env:POSTGRES_PASSWORD}@localhost:5432/{env:POSTGRES_DB}"
       ],
       "enabled": false
     },
