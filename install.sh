@@ -355,6 +355,24 @@ else
     fi
 fi
 
+# -- Local configs (per-machine, gitignored) -----------------------------------
+
+section "Local Configs"
+
+NVIM_LOCAL_DIR="$DOTFILES_DIR/nvim/lua/local"
+mkdir -p "$NVIM_LOCAL_DIR" 2>/dev/null || true
+
+if [ -f "$NVIM_LOCAL_DIR/projects.lua" ]; then
+    if $DRY_RUN; then ok "nvim projects.lua"; else skip "nvim projects.lua already exists"; fi
+else
+    if $DRY_RUN; then
+        missing "nvim projects.lua (will create from template)"
+    else
+        cp "$NVIM_LOCAL_DIR/projects.lua.example" "$NVIM_LOCAL_DIR/projects.lua"
+        info "Created nvim/lua/local/projects.lua from template (edit to match your setup)"
+    fi
+fi
+
 # -- CLI tools -----------------------------------------------------------------
 
 section "CLI Tools"

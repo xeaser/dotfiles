@@ -30,33 +30,30 @@ return {
 			desc = "Load project by path",
 		},
 	},
-	opts = {
-		projects = {
-			"~/Work/AIFR/*",
-			"~/Work/Agentic/*",
-			"~/Work/Infra/*",
-			"~/Work/MCP/*",
-			"~/Work/X/*",
-			"~/Work/CB/*",
-			"~/Work/Exp/*",
-			"~/Work/Learning/*",
-			"~/Work/bifrost/*",
-			"~/Work/UnifyAI/*",
-			"~/dotfiles/",
-		},
-		picker = {
-			type = "fzf-lua",
-			opts = {
-				winopts = {
-					width = 0.4,
-					height = 0.5,
+	opts = function()
+		local projects_file = vim.fn.stdpath("config") .. "/lua/local/projects.lua"
+		local ok, projects = pcall(dofile, projects_file)
+		if not ok then
+			projects = {}
+			vim.notify("No local projects file found at: " .. projects_file, vim.log.levels.WARN)
+		end
+
+		return {
+			projects = projects,
+			picker = {
+				type = "fzf-lua",
+				opts = {
+					winopts = {
+						width = 0.4,
+						height = 0.5,
+					},
 				},
 			},
-		},
-		session_manager_opts = {
-			autosave_last_session = true,
-		},
-	},
+			session_manager_opts = {
+				autosave_last_session = true,
+			},
+		}
+	end,
 	init = function()
 		vim.api.nvim_create_autocmd("User", {
 			pattern = "SessionSavePre",

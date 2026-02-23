@@ -98,11 +98,11 @@
     },
     "cloudbees": {
       "type": "remote",
-      "url": "http://localhost:9090/mcp/v1/",
+      "url": "http://localhost:8080/mcp/v1/",
       "headers": {
-        "X-Org-Id": "YOUR_ORG_ID"
+        "X-Org-Id": "{env:CLOUDBEES_ORG_ID}"
       },
-      "enabled": false
+      "enabled": true
     }
   },
   "provider": {

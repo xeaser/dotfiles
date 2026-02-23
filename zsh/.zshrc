@@ -36,6 +36,7 @@ export EDITOR='nvim'
 export COLORTERM=truecolor
 export BUN_INSTALL="$HOME/.bun"
 export NVM_DIR="$HOME/.nvm"
+export CLOUDBEES_ORG_ID="0bf1ea4f-2aca-4be2-9339-86287204e6c5"
 
 # ============================================================================
 # PATH

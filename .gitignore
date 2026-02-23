@@ -21,6 +21,8 @@ opencode/*.map
 
 # nvim
 nvim/lazyvim.json
+nvim/lua/local/
+!nvim/lua/local/*.example
 
 # backups
 .dotfiles_backup/
