@@ -309,6 +309,10 @@ if [ -f "$DOTFILES_DIR/git/.gitconfig" ]; then
     backup_and_link "$DOTFILES_DIR/git/.gitconfig"      "$HOME/.gitconfig"
 fi
 
+# finicky
+mkdir -p "$HOME/.config/finicky" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/finicky/finicky.ts"        "$HOME/.config/finicky/finicky.ts"
+
 # k9s (individual config files, not clusters/)
 mkdir -p "$HOME/.config/k9s" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/k9s/config.yaml"         "$HOME/.config/k9s/config.yaml"

@@ -47,6 +47,10 @@ export PATH="$PATH:/Users/psharma/.lmstudio/bin"
 export PATH=$PATH:/Users/psharma/.local/bin
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH=/Users/psharma/.opencode/bin:$PATH
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
+export PATH=$PATH:/opt/homebrew/opt/postgresql/bin
+export PATH=$PATH:/Users/psharma/Library/Python/3.9/bin
+
 
 # ============================================================================
 # Secrets

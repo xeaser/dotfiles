@@ -72,7 +72,7 @@
     "jetbrains-pycharm": {
       "type": "remote",
       "url": "http://localhost:64343/sse",
-      "enabled": true
+      "enabled": false
     },
     "aifr-preprod": {
       "type": "remote",
@@ -101,6 +101,15 @@
       "url": "http://localhost:8080/mcp/v1/",
       "headers": {
         "X-Org-Id": "{env:CLOUDBEES_ORG_ID}"
+      },
+      "enabled": false
+    },
+    "slack": {
+      "type": "remote",
+      "url": "https://mcp.slack.com/mcp",
+      "oauth": {
+        "clientId": "1601185624273.8899143856786",
+        // "callbackPort": 3118
       },
       "enabled": false
     }
