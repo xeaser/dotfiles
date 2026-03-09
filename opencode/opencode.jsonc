@@ -112,6 +112,21 @@
         // "callbackPort": 3118
       },
       "enabled": false
+    },
+    "codegraphcontext": {
+      "type": "local",
+      "command": [
+        "/Users/psharma/.local/bin/cgc",
+        "mcp",
+        "start"
+      ],
+      "environment": {
+        "DEFAULT_DATABASE": "neo4j",
+        "NEO4J_URI": "bolt://localhost:7687",
+        "NEO4J_USERNAME": "neo4j",
+        "NEO4J_PASSWORD": "{env:NEO4J_PASSWORD}"
+      },
+      "enabled": true
     }
   },
   "provider": {

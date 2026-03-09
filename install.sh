@@ -338,6 +338,10 @@ backup_and_link "$DOTFILES_DIR/opencode/skills/aws-sso-reauth/SKILL.md" "$HOME/.
 backup_and_link "$DOTFILES_DIR/opencode/skills/ci-status/SKILL.md"      "$HOME/.config/opencode/skills/ci-status/SKILL.md"
 backup_and_link "$DOTFILES_DIR/opencode/skills/pr-status/SKILL.md"      "$HOME/.config/opencode/skills/pr-status/SKILL.md"
 
+# codegraphcontext
+mkdir -p "$HOME/.codegraphcontext" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/codegraphcontext/.env" "$HOME/.codegraphcontext/.env"
+
 mkdir -p "$HOME/.config/opencode/profiles/default" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/opencode/profiles/default/AGENTS.md"       "$HOME/.config/opencode/profiles/default/AGENTS.md"
 backup_and_link "$DOTFILES_DIR/opencode/profiles/default/ocx.jsonc"       "$HOME/.config/opencode/profiles/default/ocx.jsonc"
