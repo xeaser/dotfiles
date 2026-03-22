@@ -1,0 +1,52 @@
+# macOS system
+.DS_Store
+.Spotlight-V100
+.Trashes
+.fseventsd
+.TemporaryItems
+
+# App data & browser profiles
+Library/
+Applications/
+Movies/
+Music/
+Pictures/
+Public/
+Desktop/
+
+# AI/ML models & tools
+.lmstudio/
+.ollama/
+
+# Dev tooling & runtimes
+.local/
+.config/gcloud/
+.docker/
+.kube/
+.npm/
+.nvm/
+.bun/
+.cargo/
+.rustup/
+.pyenv/
+.rbenv/
+.gem/
+.gradle/
+.m2/
+.volta/
+node_modules/
+
+# Caches & state
+.cache/
+.Trash/
+.vscode/
+.idea/
+.zsh_sessions/
+.zsh_history
+.bash_history
+
+# Secrets & credentials
+.ssh/
+.gnupg/
+.aws/
+.azure/

@@ -25,7 +25,7 @@
         "mcp/postgres",
         "postgresql://postgres:{env:POSTGRES_PASSWORD}@host.docker.internal:5432/{env:POSTGRES_DB}"
       ],
-      "enabled": true
+      "enabled": false
     },
     "postgres_rw": {
       "type": "local",
@@ -62,25 +62,25 @@
         "stdio",
         "--organization-id=YOUR_ORG_ID"
       ],
-      "enabled": true
+      "enabled": false
     },
     "jetbrains": {
       "type": "remote",
       "url": "http://localhost:64342/sse",
-      "enabled": true
+      "enabled": false
     },
     "jetbrains-pycharm": {
       "type": "remote",
       "url": "http://localhost:64343/sse",
-      "enabled": true
+      "enabled": false
     },
     "aifr-preprod": {
       "type": "remote",
       "url": "https://aifr.saas-preprod.beescloud.com/mcp",
       "headers": {
-        "Authorization": "Bearer {env:AIFR_PREPROD_TOKEN}"
+        "Authorization": "Bearer {env:AIFR_PREPROD_KEY}"
       },
-      "enabled": true
+      "enabled": false
     },
     "obsidian": {
       "type": "local",
@@ -116,9 +116,7 @@
     "codegraphcontext": {
       "type": "local",
       "command": [
-        "/Users/psharma/.local/bin/cgc",
-        "mcp",
-        "start"
+        "/Users/psharma/dotfiles/codegraphcontext/start-mcp.sh"
       ],
       "environment": {
         "DEFAULT_DATABASE": "neo4j",
@@ -127,6 +125,11 @@
         "NEO4J_PASSWORD": "{env:NEO4J_PASSWORD}"
       },
       "enabled": true
+    },
+    "superset": {
+      "type": "remote",
+      "url": "https://api.superset.sh/api/agent/mcp",
+      "oauth": {}
     }
   },
   "provider": {
