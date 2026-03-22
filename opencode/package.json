@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@opencode-ai/plugin": "0.0.0-fix/bedrock-1m-context-split-202602210403"
+    "@opencode-ai/plugin": "1.2.27"
   },
   "devDependencies": {
     "jsonc-parser": "3.3.1",

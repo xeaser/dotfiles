@@ -37,6 +37,7 @@ export COLORTERM=truecolor
 export BUN_INSTALL="$HOME/.bun"
 export NVM_DIR="$HOME/.nvm"
 export CLOUDBEES_ORG_ID="0bf1ea4f-2aca-4be2-9339-86287204e6c5"
+export AIFR_PREPROD_TOKEN="256b2240b406ce3bbb40ab673f594fe9f2f5095409cd7c47286502280e14552e"
 
 # ============================================================================
 # PATH
@@ -83,7 +84,7 @@ alias k='kubectl'
 alias homelab='ssh -i ~/.ssh/id_ed25519 zephyr@192.168.1.222'
 alias ssologin='aws sso login --sso-session cb'
 alias opencode='AWS_PROFILE=cb-bedrock opencode'
-alias opencode-dev="AWS_PROFILE=cb-bedrock ~/.local/bin/opencode-dev"
+# alias opencode-dev="AWS_PROFILE=cb-bedrock ~/.local/bin/opencode-dev"
 alias jira='jiratui ui'
 alias mcpinspect='npx @modelcontextprotocol/inspector'
 alias tdaily='~/.tmux/sessions/daily.sh'
