@@ -35,6 +35,7 @@ Desktop/
 .m2/
 .volta/
 node_modules/
+go/pkg/mod/
 
 # Caches & state
 .cache/
