@@ -19,7 +19,7 @@ COMPLETION_WAITING_DOTS="true"
 
 plugins=(git jiratui helm go-task-completions kubectl-autocomplete opscore you-should-use zsh-completions zsh-history-substring-search fzf-tab zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete)
 
-export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/bin:$HOME/dotfiles/zsh/scripts
 
 source $ZSH/oh-my-zsh.sh
 
@@ -94,6 +94,8 @@ fi
 alias oc-serve='openchamber serve --port 4096 --ui-password "$OPENCHAMBER_UI_PASSWORD"'
 alias oc-stop='kill $(lsof -ti :4096) 2>/dev/null; rm -f ~/.config/openchamber/run/openchamber-4096.{json,pid}'
 alias oc-logs='openchamber logs -p 4096'
+alias tw-start='tw-connector start'
+alias tw-stop='tw-connector stop'
 
 # ============================================================================
 # Aliases - Development

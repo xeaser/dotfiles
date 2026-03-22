@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Twingate connector manager (Docker)
+# Usage: tw-connector start|stop|status
+
+set -euo pipefail
+
+CONTAINER_NAME="twingate-connector"
+IMAGE="twingate/connector:latest"
+
+case "${1:-}" in
+  start)
+    docker start "$CONTAINER_NAME" 2>/dev/null || \
+    docker run -d --name "$CONTAINER_NAME" \
+      -e TWINGATE_NETWORK="$TWINGATE_NETWORK" \
+      -e TWINGATE_ACCESS_TOKEN="$TWINGATE_ACCESS_TOKEN" \
+      -e TWINGATE_REFRESH_TOKEN="$TWINGATE_REFRESH_TOKEN" \
+      --add-host=openchamber:host-gateway \
+      --restart unless-stopped \
+      "$IMAGE"
+    ;;
+  stop)
+    docker stop "$CONTAINER_NAME"
+    ;;
+  status)
+    docker inspect -f '{{.State.Status}}' "$CONTAINER_NAME" 2>/dev/null || echo "not created"
+    ;;
+  *)
+    echo "Usage: tw-connector start|stop|status"
+    exit 1
+    ;;
+esac
