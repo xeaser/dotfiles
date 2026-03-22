@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1-1m",
+      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
       "variant": "max"
     },
     "hephaestus": {
@@ -14,13 +14,13 @@
       "variant": "high"
     },
     "librarian": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-5-20250929-v1:0-1m"
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6"
     },
     "explore": {
-      "model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0"
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6"
     },
     "prometheus": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1-1m",
+      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
       "variant": "max"
     },
     "metis": {
@@ -32,7 +32,7 @@
       "variant": "medium"
     },
     "atlas": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-5-20250929-v1:0-1m"
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6"
     }
   },
   "disabled_hooks": [
@@ -40,7 +40,7 @@
   ],
   "categories": {
     "visual-engineering": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-5-20250929-v1:0"
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6"
     },
     "ultrabrain": {
       "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
@@ -51,14 +51,14 @@
       "variant": "medium"
     },
     "artistry": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-5-20250929-v1:0",
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6",
       "variant": "high"
     },
     "quick": {
       "model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0"
     },
     "unspecified-low": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-5-20250929-v1:0"
+      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6"
     },
     "unspecified-high": {
       "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",

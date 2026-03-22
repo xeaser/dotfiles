@@ -1,7 +1,7 @@
 {
   "plugin": [
     "oh-my-opencode@latest",
-    "@xeaser/opencode-obsidian-sync",
+    // "@xeaser/opencode-obsidian-sync",
     "@tarquinen/opencode-dcp@latest",
     "@nick-vi/opencode-type-inject",
     "opencode-pty",
@@ -72,7 +72,7 @@
     "jetbrains-pycharm": {
       "type": "remote",
       "url": "http://localhost:64343/sse",
-      "enabled": false
+      "enabled": true
     },
     "aifr-preprod": {
       "type": "remote",
@@ -80,7 +80,7 @@
       "headers": {
         "Authorization": "Bearer {env:AIFR_PREPROD_TOKEN}"
       },
-      "enabled": false
+      "enabled": true
     },
     "obsidian": {
       "type": "local",
