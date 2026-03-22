@@ -308,6 +308,7 @@ backup_and_link "$DOTFILES_DIR/kitty/kitty.conf"        "$HOME/.config/kitty/kit
 if [ -f "$DOTFILES_DIR/git/.gitconfig" ]; then
     backup_and_link "$DOTFILES_DIR/git/.gitconfig"      "$HOME/.gitconfig"
 fi
+backup_and_link "$DOTFILES_DIR/git/.gitignore_global"   "$HOME/.gitignore_global"
 
 # finicky
 mkdir -p "$HOME/.config/finicky" 2>/dev/null || true

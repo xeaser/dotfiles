@@ -37,7 +37,6 @@ export COLORTERM=truecolor
 export BUN_INSTALL="$HOME/.bun"
 export NVM_DIR="$HOME/.nvm"
 export CLOUDBEES_ORG_ID="0bf1ea4f-2aca-4be2-9339-86287204e6c5"
-export AIFR_PREPROD_TOKEN="256b2240b406ce3bbb40ab673f594fe9f2f5095409cd7c47286502280e14552e"
 
 # ============================================================================
 # PATH
@@ -92,6 +91,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
     alias toggleNotch=$'open \'xyz.kondor.znotch://v1/manage?action=toggle'\'
     alias volUp='osascript -e "set volume input volume 100"'
 fi
+alias oc-serve='openchamber serve --port 4096 --ui-password "$OPENCHAMBER_UI_PASSWORD"'
+alias oc-stop='kill $(lsof -ti :4096) 2>/dev/null; rm -f ~/.config/openchamber/run/openchamber-4096.{json,pid}'
+alias oc-logs='openchamber logs -p 4096'
 
 # ============================================================================
 # Aliases - Development
@@ -212,3 +214,8 @@ echo "$(date) -- .zshrc executed" >> $HOME/.zshrc.log
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/psharma/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
