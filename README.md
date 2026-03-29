@@ -14,58 +14,19 @@ git clone https://github.com/xeaser/dotfiles.git ~/dotfiles && cd ~/dotfiles && 
 
 ```
 ~/dotfiles/
-├── zsh/                  # Zsh config + Powerlevel10k prompt
-│   ├── .zshrc
-│   └── .p10k.zsh
-├── tmux/                 # oh-my-tmux config + scripts
-│   ├── .tmux.conf.local
-│   ├── .gitmux.conf
-│   └── scripts/
-│       └── spotify.sh
-├── nvim/                 # LazyVim-based Neovim config
-│   ├── init.lua
-│   ├── lazy-lock.json    # Plugin version lockfile
-│   ├── cheatsheet.md     # Keybinding reference
-│   └── lua/
-│       ├── config/
-│       │   ├── lazy.lua      # Plugin manager + 21 LazyVim extras
-│       │   └── options.lua   # exrc, session options
-│       └── plugins/
-│           ├── avante.lua        # AI assistant (Claude)
-│           ├── coffebar.lua      # Project manager (fzf-lua)
-│           ├── colorscheme.lua   # Gruvbox-material + 4 themes
-│           ├── dap.lua           # Debug adapter UI layout
-│           ├── neotest.lua       # Test runner (Go, Python, Jest)
-│           ├── noice.lua         # Command line position
-│           ├── opencode.lua      # opencode.nvim integration
-│           ├── treesitter.lua    # Syntax + incremental selection
-│           └── vim-tmux-navigator.lua
-├── kitty/                # Kitty terminal config
-│   └── kitty.conf
-├── git/                  # Git config
-│   └── .gitconfig
-├── k9s/                  # k9s Kubernetes terminal UI
-│   ├── config.yaml       # Global settings, UI, logger, thresholds
-│   ├── aliases.yaml      # Resource navigation shortcuts
-│   ├── views.yaml        # Custom column layouts for pods
-│   └── clusters/
-│       └── example-cluster.yaml  # Template
-├── opencode/             # opencode AI coding assistant
-│   ├── opencode.jsonc    # Main config: plugins, MCP servers, providers
-│   ├── ocx.jsonc         # OCX extension manager config
-│   ├── oh-my-opencode.json  # Agent model routing
-│   ├── dcp.jsonc         # Dynamic context pruning config
-│   ├── package.json      # Plugin dependencies
-│   ├── commands/         # Slash commands (/ci, /pr)
-│   ├── skills/           # Reusable agent skills
-│   │   ├── aws-sso-reauth/
-│   │   ├── ci-status/
-│   │   └── pr-status/
-│   └── profiles/default/ # Default profile overrides
-├── examples/             # Project-local config examples
-│   ├── .nvim.lua         # Per-project Neovim DAP config
-│   ├── .envrc            # Per-project direnv env vars
-│   └── README.md
+├── zsh/                  # Zsh + Powerlevel10k, plugins, custom scripts
+├── tmux/                 # oh-my-tmux config, gitmux, spotify status
+├── nvim/                 # LazyVim config, plugins, cheatsheet
+├── kitty/                # Kitty terminal theme + settings
+├── git/                  # .gitconfig, .gitignore_global
+├── k9s/                  # Kubernetes UI: aliases, views, cluster templates
+├── opencode/             # AI assistant: config, skills, commands, profiles
+├── caddy/                # Caddyfile reverse proxy
+├── dns/                  # Homelab DNS config
+├── finicky/              # macOS browser routing rules
+├── codegraphcontext/     # Code graph MCP server
+├── .superset/            # AI orchestration config
+├── examples/             # Project-local config templates (.nvim.lua, .envrc)
 ├── Brewfile              # Homebrew packages
 ├── install.sh            # Idempotent setup script
 ├── .secrets.example      # Template for secrets
@@ -91,7 +52,12 @@ Shows a color-coded report: green = installed, red = missing, blue = needs linki
 | **nvim** | LazyVim with 21 extras: gruvbox-material theme, NeoTree, DAP debugging, neotest, illuminate, aerial, navic, indent-blankline, avante (AI), opencode.nvim, project manager. See [cheatsheet](nvim/cheatsheet.md) |
 | **kitty** | Gruvbox dark theme, Nerd Fonts, powerline tabs |
 | **k9s** | Kubernetes terminal UI with custom aliases (dp, sec, jo), pod column layouts with image versions and resource usage |
-| **opencode** | AI coding assistant with oh-my-opencode model routing, MCP servers (postgres, GitHub, Atlassian, JetBrains, Obsidian), custom skills (AWS SSO, CI status, PR status), slash commands |
+| **opencode** | AI coding assistant with oh-my-opencode model routing, MCP servers (postgres, GitHub, Atlassian, JetBrains, Obsidian), custom skills (AWS SSO, CI status, PR status, code review), slash commands |
+| **caddy** | Reverse proxy config (Caddyfile) for local/homelab services |
+| **dns** | Homelab DNS configuration |
+| **finicky** | macOS browser routing rules (finicky.ts) |
+| **codegraphcontext** | Code graph MCP server for codebase analysis |
+| **.superset** | AI orchestration config (setup/teardown/run hooks) |
 | **brew** | All packages captured in Brewfile |
 
 ## Secrets Management
