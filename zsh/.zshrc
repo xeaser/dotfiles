@@ -80,7 +80,7 @@ alias vizaws='vi ~/.aws/config'
 # Aliases - Tools & Workflow
 # ============================================================================
 alias k='kubectl'
-alias homelab='ssh -i ~/.ssh/id_ed25519 zephyr@192.168.1.222'
+alias homelab='ssh homelab'
 alias ssologin='aws sso login --sso-session cb'
 alias opencode='AWS_PROFILE=cb-bedrock opencode'
 # alias opencode-dev="AWS_PROFILE=cb-bedrock ~/.local/bin/opencode-dev"

@@ -2,7 +2,7 @@ export default {
   defaultBrowser: "Arc",
   handlers: [
     {
-      match: ["https://docs.google.com/*", "https://calendar.google.com/*", "https://mail.google.com/*"],
+      match: ["https://docs.google.com/*", "https://calendar.google.com/*", "https://mail.google.com/*", "https://drive.google.com/*"],
       browser: "Google Chrome"
     },
     {
