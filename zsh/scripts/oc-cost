@@ -1,0 +1,290 @@
+#!/usr/bin/env bash
+# OpenCode cost tracker - query usage costs from local SQLite DB
+# Usage: oc-cost [summary|weekly|sessions|models|session <id>]
+
+set -euo pipefail
+
+DB="${OPENCODE_DB:-$HOME/.local/share/opencode/opencode.db}"
+
+if [[ ! -f "$DB" ]]; then
+  echo "Error: OpenCode database not found at $DB" >&2
+  echo "Set OPENCODE_DB to override the path." >&2
+  exit 1
+fi
+
+q() { sqlite3 -separator '|' "$DB" "$1"; }
+
+fmt_cost() { printf '$%.2f' "$1"; }
+
+# ── Summary (default) ────────────────────────────────────────────────
+
+cmd_summary() {
+  local today_start week_start month_start
+  today_start=$(date -u +%Y-%m-%d)
+  week_start=$(date -v-monday -u +%Y-%m-%d 2>/dev/null || date -d 'last monday' -u +%Y-%m-%d)
+  month_start=$(date -u +%Y-%m-01)
+
+  read -r total_cost total_msgs total_sessions <<< "$(q "
+    SELECT
+      COALESCE(ROUND(SUM(json_extract(m.data, '\$.cost')), 2), 0),
+      COUNT(m.id),
+      COUNT(DISTINCT m.session_id)
+    FROM message m
+    WHERE json_extract(m.data, '\$.cost') > 0
+  " | tr '|' ' ')"
+
+  read -r today_cost today_msgs <<< "$(q "
+    SELECT
+      COALESCE(ROUND(SUM(json_extract(m.data, '\$.cost')), 2), 0),
+      COUNT(m.id)
+    FROM message m
+    WHERE json_extract(m.data, '\$.cost') > 0
+      AND date(m.time_created/1000, 'unixepoch', 'localtime') = '$today_start'
+  " | tr '|' ' ')"
+
+  read -r week_cost week_msgs <<< "$(q "
+    SELECT
+      COALESCE(ROUND(SUM(json_extract(m.data, '\$.cost')), 2), 0),
+      COUNT(m.id)
+    FROM message m
+    WHERE json_extract(m.data, '\$.cost') > 0
+      AND date(m.time_created/1000, 'unixepoch', 'localtime') >= '$week_start'
+  " | tr '|' ' ')"
+
+  read -r month_cost month_msgs <<< "$(q "
+    SELECT
+      COALESCE(ROUND(SUM(json_extract(m.data, '\$.cost')), 2), 0),
+      COUNT(m.id)
+    FROM message m
+    WHERE json_extract(m.data, '\$.cost') > 0
+      AND date(m.time_created/1000, 'unixepoch', 'localtime') >= '$month_start'
+  " | tr '|' ' ')"
+
+  printf '\n  OpenCode Usage Summary\n'
+  printf '  %-14s %10s  %8s\n' '' 'Cost' 'Messages'
+  printf '  %-14s %10s  %8s\n' '──────────────' '──────────' '────────'
+  printf '  %-14s %10s  %8s\n' 'Today' "$(fmt_cost "$today_cost")" "$today_msgs"
+  printf '  %-14s %10s  %8s\n' 'This week' "$(fmt_cost "$week_cost")" "$week_msgs"
+  printf '  %-14s %10s  %8s\n' 'This month' "$(fmt_cost "$month_cost")" "$month_msgs"
+  printf '  %-14s %10s  %8s\n' 'All time' "$(fmt_cost "$total_cost")" "$total_msgs"
+  printf '  %-14s %10s\n' 'Sessions' "$total_sessions"
+  printf '\n'
+}
+
+# ── Weekly breakdown ─────────────────────────────────────────────────
+
+cmd_weekly() {
+  local weeks="${1:-12}"
+
+  printf '\n  %-12s %10s  %8s  %8s\n' 'Week' 'Cost' 'Messages' 'Sessions'
+  printf '  %-12s %10s  %8s  %8s\n' '────────────' '──────────' '────────' '────────'
+
+  q "
+    SELECT
+      strftime('%Y-W%W', datetime(m.time_created/1000, 'unixepoch', 'localtime')) as week,
+      ROUND(SUM(json_extract(m.data, '\$.cost')), 2),
+      COUNT(m.id),
+      COUNT(DISTINCT m.session_id)
+    FROM message m
+    WHERE json_extract(m.data, '\$.cost') > 0
+    GROUP BY week
+    ORDER BY week DESC
+    LIMIT $weeks
+  " | while IFS='|' read -r week cost msgs sessions; do
+    printf '  %-12s %10s  %8s  %8s\n' "$week" "$(fmt_cost "$cost")" "$msgs" "$sessions"
+  done
+  printf '\n'
+}
+
+# ── Sessions with subagent rollup ────────────────────────────────────
+
+cmd_sessions() {
+  local limit="${1:-20}"
+
+  printf '\n  %-20s %-40s %10s  %5s  %8s\n' 'Session' 'Title' 'Cost' 'Subs' 'Messages'
+  printf '  %-20s %-40s %10s  %5s  %8s\n' '────────────────────' '────────────────────────────────────────' '──────────' '─────' '────────'
+
+  q "
+    WITH session_costs AS (
+      SELECT
+        COALESCE(s.parent_id, s.id) as root_id,
+        s.id as sid,
+        s.parent_id,
+        SUM(json_extract(m.data, '\$.cost')) as cost,
+        COUNT(m.id) as msgs
+      FROM message m
+      JOIN session s ON s.id = m.session_id
+      WHERE json_extract(m.data, '\$.cost') > 0
+      GROUP BY s.id
+    )
+    SELECT
+      rs.id,
+      SUBSTR(REPLACE(rs.title, CHAR(10), ' '), 1, 38) as title,
+      ROUND(SUM(sc.cost), 2) as total_cost,
+      COUNT(CASE WHEN sc.parent_id IS NOT NULL THEN 1 END) as sub_count,
+      SUM(sc.msgs) as total_msgs
+    FROM session_costs sc
+    JOIN session rs ON rs.id = sc.root_id
+    GROUP BY sc.root_id
+    ORDER BY total_cost DESC
+    LIMIT $limit
+  " | while IFS='|' read -r sid title cost subs msgs; do
+    short_id="${sid:0:18}.."
+    printf '  %-20s %-40s %10s  %5s  %8s\n' "$short_id" "$title" "$(fmt_cost "$cost")" "$subs" "$msgs"
+  done
+  printf '\n'
+}
+
+# ── Model breakdown ──────────────────────────────────────────────────
+
+cmd_models() {
+  printf '\n  %-40s %10s  %8s  %12s  %12s  %12s\n' 'Model' 'Cost' 'Calls' 'Input Tk' 'Output Tk' 'Cache Rd Tk'
+  printf '  %-40s %10s  %8s  %12s  %12s  %12s\n' '────────────────────────────────────────' '──────────' '────────' '────────────' '────────────' '────────────'
+
+  q "
+    SELECT
+      json_extract(data, '\$.modelID') as model,
+      ROUND(SUM(json_extract(data, '\$.cost')), 2),
+      COUNT(*),
+      SUM(json_extract(data, '\$.tokens.input')),
+      SUM(json_extract(data, '\$.tokens.output')),
+      SUM(json_extract(data, '\$.tokens.cache.read'))
+    FROM message
+    WHERE json_extract(data, '\$.cost') > 0
+    GROUP BY model
+    ORDER BY SUM(json_extract(data, '\$.cost')) DESC
+  " | while IFS='|' read -r model cost calls input output cache_read; do
+    printf '  %-40s %10s  %8s  %12s  %12s  %12s\n' "$model" "$(fmt_cost "$cost")" "$calls" "$input" "$output" "$cache_read"
+  done
+  printf '\n'
+}
+
+# ── Single session detail ────────────────────────────────────────────
+
+cmd_session() {
+  local session_id="$1"
+
+  # fuzzy match if partial id given
+  local full_id
+  full_id=$(q "SELECT id FROM session WHERE id LIKE '${session_id}%' LIMIT 1")
+  if [[ -z "$full_id" ]]; then
+    echo "Error: No session found matching '$session_id'" >&2
+    exit 1
+  fi
+
+  local title created
+  title=$(q "SELECT title FROM session WHERE id = '$full_id'")
+  created=$(q "SELECT datetime(time_created/1000, 'unixepoch', 'localtime') FROM session WHERE id = '$full_id'")
+
+  printf '\n  Session: %s\n' "$full_id"
+  printf '  Title:   %s\n' "$title"
+  printf '  Created: %s\n\n' "$created"
+
+  # root session cost
+  read -r root_cost root_msgs <<< "$(q "
+    SELECT
+      COALESCE(ROUND(SUM(json_extract(data, '\$.cost')), 2), 0),
+      COUNT(id)
+    FROM message
+    WHERE session_id = '$full_id'
+      AND json_extract(data, '\$.cost') > 0
+  " | tr '|' ' ')"
+
+  printf '  %-50s %10s  %8s\n' '' 'Cost' 'Messages'
+  printf '  %-50s %10s  %8s\n' '──────────────────────────────────────────────────' '──────────' '────────'
+  printf '  %-50s %10s  %8s\n' 'Root session' "$(fmt_cost "$root_cost")" "$root_msgs"
+
+  # child sessions
+  local child_total=0
+  q "
+    SELECT
+      s.id,
+      SUBSTR(REPLACE(s.title, CHAR(10), ' '), 1, 46),
+      COALESCE(ROUND(SUM(json_extract(m.data, '\$.cost')), 2), 0),
+      COUNT(m.id)
+    FROM session s
+    JOIN message m ON m.session_id = s.id
+    WHERE s.parent_id = '$full_id'
+      AND json_extract(m.data, '\$.cost') > 0
+    GROUP BY s.id
+    ORDER BY SUM(json_extract(m.data, '\$.cost')) DESC
+  " | while IFS='|' read -r cid ctitle ccost cmsgs; do
+    printf '  %-50s %10s  %8s\n' "  $ctitle" "$(fmt_cost "$ccost")" "$cmsgs"
+  done
+
+  # total
+  read -r total_cost total_msgs <<< "$(q "
+    SELECT
+      COALESCE(ROUND(SUM(json_extract(m.data, '\$.cost')), 2), 0),
+      COUNT(m.id)
+    FROM message m
+    JOIN session s ON s.id = m.session_id
+    WHERE (s.id = '$full_id' OR s.parent_id = '$full_id')
+      AND json_extract(m.data, '\$.cost') > 0
+  " | tr '|' ' ')"
+
+  printf '  %-50s %10s  %8s\n' '──────────────────────────────────────────────────' '──────────' '────────'
+  printf '  %-50s %10s  %8s\n' 'Total (with subagents)' "$(fmt_cost "$total_cost")" "$total_msgs"
+
+  # model breakdown for this session tree
+  printf '\n  Models:\n'
+  q "
+    SELECT
+      json_extract(m.data, '\$.modelID'),
+      ROUND(SUM(json_extract(m.data, '\$.cost')), 2),
+      COUNT(m.id)
+    FROM message m
+    JOIN session s ON s.id = m.session_id
+    WHERE (s.id = '$full_id' OR s.parent_id = '$full_id')
+      AND json_extract(m.data, '\$.cost') > 0
+    GROUP BY json_extract(m.data, '\$.modelID')
+    ORDER BY SUM(json_extract(m.data, '\$.cost')) DESC
+  " | while IFS='|' read -r model cost calls; do
+    printf '    %-40s %10s  %5s calls\n' "$model" "$(fmt_cost "$cost")" "$calls"
+  done
+  printf '\n'
+}
+
+# ── Help ─────────────────────────────────────────────────────────────
+
+cmd_help() {
+  cat <<EOF
+
+  oc-cost - OpenCode usage cost tracker
+
+  Usage:
+    oc-cost                  Show summary (today, week, month, all time)
+    oc-cost weekly [N]       Weekly breakdown (last N weeks, default 12)
+    oc-cost sessions [N]     Top N sessions by cost with subagent rollup (default 20)
+    oc-cost models           Cost breakdown by model
+    oc-cost session <id>     Detail for a specific session (partial id OK)
+    oc-cost help             Show this help
+
+  Environment:
+    OPENCODE_DB              Override database path
+                             (default: ~/.local/share/opencode/opencode.db)
+
+EOF
+}
+
+# ── Main ─────────────────────────────────────────────────────────────
+
+case "${1:-summary}" in
+  summary)          cmd_summary ;;
+  weekly)           cmd_weekly "${2:-12}" ;;
+  sessions)         cmd_sessions "${2:-20}" ;;
+  models)           cmd_models ;;
+  session)
+    if [[ -z "${2:-}" ]]; then
+      echo "Error: session id required. Usage: oc-cost session <id>" >&2
+      exit 1
+    fi
+    cmd_session "$2"
+    ;;
+  help|--help|-h)   cmd_help ;;
+  *)
+    echo "Unknown command: $1" >&2
+    cmd_help
+    exit 1
+    ;;
+esac

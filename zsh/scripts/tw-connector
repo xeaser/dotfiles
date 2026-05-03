@@ -14,7 +14,7 @@ case "${1:-}" in
       -e TWINGATE_NETWORK="$TWINGATE_NETWORK" \
       -e TWINGATE_ACCESS_TOKEN="$TWINGATE_ACCESS_TOKEN" \
       -e TWINGATE_REFRESH_TOKEN="$TWINGATE_REFRESH_TOKEN" \
-      --add-host=openchamber:host-gateway \
+      --add-host=openchamber.homelab:host-gateway \
       --restart unless-stopped \
       "$IMAGE"
     ;;
