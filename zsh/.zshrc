@@ -82,7 +82,13 @@ alias vizaws='vi ~/.aws/config'
 alias k='kubectl'
 alias homelab='ssh homelab'
 alias ssologin='aws sso login --sso-session cb'
-alias opencode='AWS_PROFILE=cb-bedrock opencode'
+opencode() {
+  if ! aws sts get-caller-identity --profile cb-bedrock &>/dev/null; then
+    echo "AWS SSO credentials expired. Refreshing..."
+    aws sso login --sso-session cb || { echo "SSO login failed."; return 1; }
+  fi
+  AWS_PROFILE=cb-bedrock command opencode "$@"
+}
 # alias opencode-dev="AWS_PROFILE=cb-bedrock ~/.local/bin/opencode-dev"
 alias jira='jiratui ui'
 alias mcpinspect='npx @modelcontextprotocol/inspector'
@@ -91,7 +97,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     alias toggleNotch=$'open \'xyz.kondor.znotch://v1/manage?action=toggle'\'
     alias volUp='osascript -e "set volume input volume 100"'
 fi
-alias oc-serve='openchamber serve --port 4096 --ui-password "$OPENCHAMBER_UI_PASSWORD"'
+alias oc-serve='openchamber serve --port 4096 --host 0.0.0.0 --ui-password "$OPENCHAMBER_UI_PASSWORD"'
 alias oc-stop='kill $(lsof -ti :4096) 2>/dev/null; rm -f ~/.config/openchamber/run/openchamber-4096.{json,pid}'
 alias oc-logs='openchamber logs -p 4096'
 alias tw-start='tw-connector start'

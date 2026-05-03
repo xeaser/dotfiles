@@ -94,7 +94,7 @@
         "OBSIDIAN_VERIFY_SSL": "false",
         "OBSIDIAN_ENABLE_CACHE": "true"
       },
-      "enabled": true
+      "enabled": false
     },
     "cloudbees": {
       "type": "remote",
