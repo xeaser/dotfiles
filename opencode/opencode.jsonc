@@ -107,6 +107,15 @@
       "type": "remote",
       "url": "https://api.superset.sh/api/agent/mcp",
       "oauth": {}
+    },
+    "unify": {
+      "type": "remote",
+      "url": "https://mcp.cloudbees.io/v1/mcp",
+      "oauth": {
+        "clientId": "public-mcp-client",
+        "redirectUri": "http://localhost:19876/mcp/oauth/callback"
+      },
+      "enabled": true
     }
   },
   "provider": {
