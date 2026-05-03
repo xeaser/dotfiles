@@ -1,7 +1,6 @@
 {
   "plugin": [
-    "oh-my-opencode@latest",
-    // "@xeaser/opencode-obsidian-sync",
+    "oh-my-openagent@latest",
     "@tarquinen/opencode-dcp@latest",
     "@nick-vi/opencode-type-inject",
     "opencode-pty",
@@ -50,20 +49,6 @@
       },
       "enabled": true
     },
-    "unify": {
-      "type": "local",
-      "command": [
-        "docker",
-        "run",
-        "--rm",
-        "-i",
-        "--env=CLOUDBEES_PERSONAL_ACCESS_TOKEN",
-        "cloudbees/unify-mcp-server:latest",
-        "stdio",
-        "--organization-id=YOUR_ORG_ID"
-      ],
-      "enabled": false
-    },
     "jetbrains": {
       "type": "remote",
       "url": "http://localhost:64342/sse",
@@ -94,15 +79,7 @@
         "OBSIDIAN_VERIFY_SSL": "false",
         "OBSIDIAN_ENABLE_CACHE": "true"
       },
-      "enabled": false
-    },
-    "cloudbees": {
-      "type": "remote",
-      "url": "http://localhost:8080/mcp/v1/",
-      "headers": {
-        "X-Org-Id": "{env:CLOUDBEES_ORG_ID}"
-      },
-      "enabled": false
+      "enabled": true
     },
     "slack": {
       "type": "remote",
