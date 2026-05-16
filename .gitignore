@@ -13,7 +13,9 @@ k9s/clusters/
 
 # opencode
 opencode/node_modules/
-opencode/plugin/
+opencode/plugin/**
+!opencode/plugin/openrtk/
+!opencode/plugin/openrtk/*.md
 opencode/mcp/
 opencode/*.lock
 opencode/*.lockb
