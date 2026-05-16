@@ -12,6 +12,7 @@
   ],
   "instructions": [
     "~/.config/opencode/plugin/shell-strategy/shell_strategy.md",
+    "~/.config/opencode/plugin/openrtk/openrtk.md",
   ],
   "$schema": "https://opencode.ai/config.json",
   "mcp": {

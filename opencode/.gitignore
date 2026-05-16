@@ -3,5 +3,4 @@ bun.lock
 package-lock.json
 ocx.lock
 mcp/
-plugin/
 profiles/
