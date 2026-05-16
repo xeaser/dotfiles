@@ -7,7 +7,8 @@
     "opencode-wakatime",
     "opencode-helicone-session",
     "opencode-scheduler",
-    "opencode-supermemory"
+    "opencode-supermemory",
+    "openrtk"
   ],
   "instructions": [
     "~/.config/opencode/plugin/shell-strategy/shell_strategy.md",
@@ -115,6 +116,25 @@
         "clientId": "public-mcp-client",
         "redirectUri": "http://localhost:19876/mcp/oauth/callback"
       },
+      "enabled": true
+    },
+    "unify-preprod": {
+      "type": "remote",
+      "url": "https://mcp.saas-preprod.beescloud.com/v1/mcp",
+      "oauth": {
+        "clientId": "public-mcp-client",
+        "redirectUri": "http://localhost:19876/mcp/oauth/callback"
+      },
+      "enabled": true
+    },
+    "datadog-preprod": {
+      "type": "remote",
+      "url": "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp?toolsets=all",
+      "enabled": true
+    },
+    "datadog": {
+      "type": "remote",
+      "url": "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp?toolsets=all",
       "enabled": true
     }
   },
