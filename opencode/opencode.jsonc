@@ -126,7 +126,7 @@
         "clientId": "public-mcp-client",
         "redirectUri": "http://localhost:19876/mcp/oauth/callback"
       },
-      "enabled": true
+      "enabled": false
     },
     "datadog-preprod": {
       "type": "remote",
@@ -137,6 +137,14 @@
       "type": "remote",
       "url": "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp?toolsets=all",
       "enabled": true
+    },
+    "postman": {
+      "type": "remote",
+      "url": "https://mcp.postman.com/mcp?config=full",
+      "headers": {
+        "Authorization": "Bearer {env:POSTMAN_API_KEY}"
+      },
+      "enabled": false
     }
   },
   "provider": {

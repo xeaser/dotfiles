@@ -17,7 +17,7 @@ COMPLETION_WAITING_DOTS="true"
 
 [[ -z "$TMUX" ]] && export TERM=xterm-256color
 
-plugins=(git jiratui helm go-task-completions kubectl-autocomplete opscore you-should-use zsh-completions zsh-history-substring-search fzf-tab zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete)
+plugins=(git jiratui helm go-task-completions kubectl-autocomplete opscore you-should-use zsh-completions zsh-history-substring-search fzf-tab zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete tilt)
 
 export PATH=$PATH:$HOME/bin:$HOME/dotfiles/zsh/scripts
 
