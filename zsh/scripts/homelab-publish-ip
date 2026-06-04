@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# Push the laptop's current default-route IP to the homelab dnsmasq.
+#
+# Triggered by ~/Library/LaunchAgents/com.psharma.homelab-publish.plist on
+# /var/run/resolv.conf changes, NetworkInterfaces.plist changes, and a 5-min
+# poll fallback. Also runnable manually for one-off bootstraps and debugging.
+#
+# Behavior:
+#   - reads default-route interface, gets its IPv4 address
+#   - if no default route or no IPv4, exits 0 (laptop offline)
+#   - if same IP as last successful push, exits 0 (no-op)
+#   - else SSHes to $HOMELAB_HOST and runs the receiver, captures result
+#   - on SSH failure (e.g. off home network), logs and exits 0
+#
+# Logs: ~/.cache/homelab-publish-ip/log
+
+set -euo pipefail
+
+HOMELAB_HOST="${HOMELAB_HOST:-homelab}"
+LAPTOP_NAME="${LAPTOP_HOSTNAME:-macbook-arena.homelab}"
+SSH_TIMEOUT="${SSH_TIMEOUT:-5}"
+
+STATE_DIR="$HOME/.cache/homelab-publish-ip"
+STATE_FILE="$STATE_DIR/last_pushed_ip"
+LOG_FILE="$STATE_DIR/log"
+
+mkdir -p "$STATE_DIR"
+
+log() {
+    printf '%s %s\n' "$(date '+%Y-%m-%dT%H:%M:%S%z')" "$*" >> "$LOG_FILE"
+}
+
+default_iface="$(route -n get default 2>/dev/null | awk '/interface:/{print $2}' | head -n1)"
+
+if [ -z "${default_iface:-}" ]; then
+    log "no default route — laptop offline, skipping"
+    exit 0
+fi
+
+current_ip="$(ipconfig getifaddr "$default_iface" 2>/dev/null || true)"
+
+if [ -z "$current_ip" ]; then
+    log "default iface $default_iface has no IPv4 — skipping"
+    exit 0
+fi
+
+last_ip="$(cat "$STATE_FILE" 2>/dev/null || true)"
+if [ "$current_ip" = "$last_ip" ]; then
+    exit 0
+fi
+
+if ssh \
+    -o BatchMode=yes \
+    -o ConnectTimeout="$SSH_TIMEOUT" \
+    -o StrictHostKeyChecking=accept-new \
+    "$HOMELAB_HOST" \
+    "sudo /usr/local/bin/homelab-publish-ip-receive '$LAPTOP_NAME' '$current_ip'" \
+    >>"$LOG_FILE" 2>&1
+then
+    echo "$current_ip" > "$STATE_FILE"
+    log "pushed $LAPTOP_NAME -> $current_ip via $default_iface"
+else
+    log "ssh push failed (rc=$?) — likely off home network ($default_iface=$current_ip)"
+fi
