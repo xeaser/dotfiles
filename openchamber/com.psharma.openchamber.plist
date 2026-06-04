@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.psharma.openchamber</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/psharma/dotfiles/openchamber/start.sh</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <true/>
+
+    <key>ThrottleInterval</key>
+    <integer>10</integer>
+
+    <key>StandardOutPath</key>
+    <string>/opt/homebrew/var/log/openchamber.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/opt/homebrew/var/log/openchamber.err</string>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/psharma</string>
+</dict>
+</plist>

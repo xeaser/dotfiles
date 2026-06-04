@@ -396,6 +396,35 @@ for tool in "${cli_tools[@]}"; do
     fi
 done
 
+# -- openchamber LaunchAgent (macOS only) --------------------------------------
+
+if $IS_MACOS; then
+    section "openchamber LaunchAgent"
+
+    OC_PLIST_SRC="$DOTFILES_DIR/openchamber/com.psharma.openchamber.plist"
+    OC_PLIST_DEST="$HOME/Library/LaunchAgents/com.psharma.openchamber.plist"
+    OC_LABEL="com.psharma.openchamber"
+
+    backup_and_link "$OC_PLIST_SRC" "$OC_PLIST_DEST"
+
+    if $DRY_RUN; then
+        if [ "$(launchctl list 2>/dev/null | grep -c "$OC_LABEL" || true)" -gt 0 ]; then
+            ok "$OC_LABEL loaded in launchd"
+        else
+            missing "$OC_LABEL not loaded in launchd"
+        fi
+    else
+        launchctl bootout "gui/$UID/$OC_LABEL" 2>/dev/null || true
+        sleep 1
+        if launchctl bootstrap "gui/$UID" "$OC_PLIST_DEST" 2>/dev/null \
+            || launchctl load -w "$OC_PLIST_DEST" 2>/dev/null; then
+            info "Loaded $OC_LABEL"
+        else
+            error "Failed to load $OC_LABEL (try: launchctl load -w $OC_PLIST_DEST)"
+        fi
+    fi
+fi
+
 # -- Make scripts executable ---------------------------------------------------
 
 chmod +x "$DOTFILES_DIR/tmux/scripts/spotify.sh" 2>/dev/null || true
