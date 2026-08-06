@@ -1,0 +1,85 @@
+// OMO configuration
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/omo.schema.json",
+  "[opencode]": {
+    "agents": {
+      "sisyphus": {
+        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "reasoning": "max"
+      },
+      "hephaestus": {
+        "model": "bedrock-mantle/gpt-5.6-sol",
+        "reasoning": "medium"
+      },
+      "oracle": {
+        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "reasoning": "high"
+      },
+      "librarian": {
+        "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
+      },
+      "explore": {
+        "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
+      },
+      "prometheus": {
+        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "reasoning": "max"
+      },
+      "metis": {
+        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "reasoning": "max"
+      },
+      "momus": {
+        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "reasoning": "medium"
+      },
+      "atlas": {
+        "model": "amazon-bedrock/us.anthropic.claude-sonnet-5",
+        "reasoning": "max"
+      }
+    },
+    "disabled_hooks": [
+      "anthropic-context-window-limit-recovery"
+    ],
+    "categories": {
+      "visual-engineering": {
+        "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
+      },
+      "ultrabrain": {
+        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "reasoning": "max"
+      },
+      "deep": {
+        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "reasoning": "medium"
+      },
+      "artistry": {
+        "model": "amazon-bedrock/us.anthropic.claude-sonnet-5",
+        "reasoning": "high"
+      },
+      "quick": {
+        "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
+      },
+      "unspecified-low": {
+        "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
+      },
+      "unspecified-high": {
+        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "reasoning": "max"
+      },
+      "writing": {
+        "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
+      }
+    },
+    "git_master": {
+      "commit_footer": true,
+      "include_co_authored_by": false,
+      "git_env_prefix": "GIT_MASTER=1"
+    }
+  },
+  "profiles": {},
+  "_migrations": [
+    "2026-07-opencode-config-unification",
+    "2026-08-reasoning-unification"
+  ]
+}

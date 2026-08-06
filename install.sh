@@ -327,6 +327,10 @@ backup_and_link "$DOTFILES_DIR/k9s/views.yaml"           "$HOME/.config/k9s/view
 # opencode: single dir symlink (per-file links self-reference & corrupt sources here)
 backup_and_link "$DOTFILES_DIR/opencode" "$HOME/.config/opencode"
 
+# omo: single-file symlink for unified OMO config (~/.omo also holds runtime state, so link only the file)
+mkdir -p "$HOME/.omo" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/omo/omo.jsonc" "$HOME/.omo/omo.jsonc"
+
 # codegraphcontext
 mkdir -p "$HOME/.codegraphcontext" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/codegraphcontext/.env" "$HOME/.codegraphcontext/.env"
