@@ -82,7 +82,7 @@ backup_and_link() {
     fi
 
     mkdir -p "$(dirname "$dest")"
-    ln -sf "$src" "$dest"
+    ln -sfn "$src" "$dest"
     info "Linked $dest -> $src"
 }
 
@@ -305,6 +305,10 @@ fi
 mkdir -p "$HOME/.config/kitty" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/kitty/kitty.conf"        "$HOME/.config/kitty/kitty.conf"
 
+# herdr (agent multiplexer — parallel trial alongside tmux/superset)
+mkdir -p "$HOME/.config/herdr" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/herdr/config.toml"       "$HOME/.config/herdr/config.toml"
+
 if [ -f "$DOTFILES_DIR/git/.gitconfig" ]; then
     backup_and_link "$DOTFILES_DIR/git/.gitconfig"      "$HOME/.gitconfig"
 fi
@@ -320,33 +324,12 @@ backup_and_link "$DOTFILES_DIR/k9s/config.yaml"         "$HOME/.config/k9s/confi
 backup_and_link "$DOTFILES_DIR/k9s/aliases.yaml"         "$HOME/.config/k9s/aliases.yaml"
 backup_and_link "$DOTFILES_DIR/k9s/views.yaml"           "$HOME/.config/k9s/views.yaml"
 
-# opencode (individual files and directories, not plugin/mcp)
-mkdir -p "$HOME/.config/opencode" 2>/dev/null || true
-backup_and_link "$DOTFILES_DIR/opencode/opencode.jsonc"      "$HOME/.config/opencode/opencode.jsonc"
-backup_and_link "$DOTFILES_DIR/opencode/ocx.jsonc"           "$HOME/.config/opencode/ocx.jsonc"
-backup_and_link "$DOTFILES_DIR/opencode/oh-my-opencode.json" "$HOME/.config/opencode/oh-my-opencode.json"
-backup_and_link "$DOTFILES_DIR/opencode/dcp.jsonc"           "$HOME/.config/opencode/dcp.jsonc"
-backup_and_link "$DOTFILES_DIR/opencode/package.json"        "$HOME/.config/opencode/package.json"
-
-mkdir -p "$HOME/.config/opencode/commands" 2>/dev/null || true
-backup_and_link "$DOTFILES_DIR/opencode/commands/ci.md"      "$HOME/.config/opencode/commands/ci.md"
-backup_and_link "$DOTFILES_DIR/opencode/commands/pr.md"      "$HOME/.config/opencode/commands/pr.md"
-
-mkdir -p "$HOME/.config/opencode/skills/aws-sso-reauth" 2>/dev/null || true
-mkdir -p "$HOME/.config/opencode/skills/ci-status" 2>/dev/null || true
-mkdir -p "$HOME/.config/opencode/skills/pr-status" 2>/dev/null || true
-backup_and_link "$DOTFILES_DIR/opencode/skills/aws-sso-reauth/SKILL.md" "$HOME/.config/opencode/skills/aws-sso-reauth/SKILL.md"
-backup_and_link "$DOTFILES_DIR/opencode/skills/ci-status/SKILL.md"      "$HOME/.config/opencode/skills/ci-status/SKILL.md"
-backup_and_link "$DOTFILES_DIR/opencode/skills/pr-status/SKILL.md"      "$HOME/.config/opencode/skills/pr-status/SKILL.md"
+# opencode: single dir symlink (per-file links self-reference & corrupt sources here)
+backup_and_link "$DOTFILES_DIR/opencode" "$HOME/.config/opencode"
 
 # codegraphcontext
 mkdir -p "$HOME/.codegraphcontext" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/codegraphcontext/.env" "$HOME/.codegraphcontext/.env"
-
-mkdir -p "$HOME/.config/opencode/profiles/default" 2>/dev/null || true
-backup_and_link "$DOTFILES_DIR/opencode/profiles/default/AGENTS.md"       "$HOME/.config/opencode/profiles/default/AGENTS.md"
-backup_and_link "$DOTFILES_DIR/opencode/profiles/default/ocx.jsonc"       "$HOME/.config/opencode/profiles/default/ocx.jsonc"
-backup_and_link "$DOTFILES_DIR/opencode/profiles/default/opencode.jsonc"  "$HOME/.config/opencode/profiles/default/opencode.jsonc"
 
 # -- Secrets -------------------------------------------------------------------
 

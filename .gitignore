@@ -16,6 +16,8 @@ opencode/node_modules/
 opencode/plugin/**
 !opencode/plugin/openrtk/
 !opencode/plugin/openrtk/*.md
+# herdr-managed opencode integration (regenerate: herdr integration install opencode)
+opencode/plugins/herdr-agent-state.js
 opencode/mcp/
 opencode/*.lock
 opencode/*.lockb
@@ -28,3 +30,6 @@ nvim/lua/local/
 
 # backups
 .dotfiles_backup/
+
+# oh-my-opencode run/continuation state
+.omo/

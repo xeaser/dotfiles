@@ -8,11 +8,12 @@
     "opencode-helicone-session",
     "opencode-scheduler",
     "opencode-supermemory",
-    "openrtk"
+    "openrtk",
+    "@datadog/opencode-plugin"
   ],
   "instructions": [
     "~/.config/opencode/plugin/shell-strategy/shell_strategy.md",
-    "~/.config/opencode/plugin/openrtk/openrtk.md",
+    "~/.config/opencode/plugin/openrtk/openrtk.md"
   ],
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
@@ -40,6 +41,11 @@
     "rovo": {
       "type": "remote",
       "url": "https://mcp.atlassian.com/v1/mcp",
+      "enabled": true
+    },
+    "aws-knowledge": {
+      "type": "remote",
+      "url": "https://knowledge-mcp.global.api.aws",
       "enabled": true
     },
     "github": {
@@ -117,7 +123,7 @@
         "clientId": "public-mcp-client",
         "redirectUri": "http://localhost:19876/mcp/oauth/callback"
       },
-      "enabled": true
+      "enabled": false
     },
     "unify-preprod": {
       "type": "remote",
@@ -131,18 +137,39 @@
     "datadog-preprod": {
       "type": "remote",
       "url": "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp?toolsets=all",
-      "enabled": true
+      "enabled": false
     },
     "datadog": {
       "type": "remote",
       "url": "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp?toolsets=all",
-      "enabled": true
+      "enabled": false
     },
     "postman": {
       "type": "remote",
       "url": "https://mcp.postman.com/mcp?config=full",
       "headers": {
         "Authorization": "Bearer {env:POSTMAN_API_KEY}"
+      },
+      "enabled": false
+    },
+    "grafana": {
+      "type": "local",
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-i",
+        "-e",
+        "GRAFANA_URL",
+        "-e",
+        "GRAFANA_API_KEY",
+        "mcp/grafana",
+        "-t",
+        "stdio"
+      ],
+      "environment": {
+        "GRAFANA_URL": "http://host.docker.internal:3001",
+        "GRAFANA_API_KEY": "{env:GRAFANA_API_KEY}"
       },
       "enabled": false
     }
@@ -153,6 +180,49 @@
         "region": "us-east-1",
         "profile": "cb-bedrock"
       },
+      "whitelist": [
+        "us.anthropic.claude-opus-4-8",
+        "us.anthropic.claude-sonnet-5",
+        "us.anthropic.claude-haiku-4-5-20251001-v1:0"
+      ]
+    },
+    "bedrock-codex": {
+      "npm": "@ai-sdk/amazon-bedrock",
+      "name": "Bedrock Codex (Runtime)",
+      "options": {
+        "region": "us-east-1",
+        "baseURL": "http://localhost:8898",
+        "accessKeyId": "dummy",
+        "secretAccessKey": "dummy"
+      },
+      "models": {
+        "openai.gpt-oss-120b-1:0": { "name": "GPT-OSS 120B (Runtime)" },
+        "deepseek.v3.2": { "name": "DeepSeek V3.2 (Runtime)" },
+        "qwen.qwen3-coder-next": { "name": "Qwen3 Coder Next (Runtime)" },
+        "minimax.minimax-m2.5": { "name": "MiniMax M2.5 (Runtime)" },
+        "moonshotai.kimi-k2.5": { "name": "Kimi K2.5 (Runtime)" },
+        "zai.glm-5": { "name": "GLM-5 (Runtime)" },
+        "mistral.devstral-2-123b": { "name": "Devstral 2 123B (Runtime)" },
+        "qwen.qwen3-next-80b-a3b": { "name": "Qwen3 Next 80B (Runtime)" },
+        "mistral.mistral-large-3-675b-instruct": { "name": "Mistral Large 3 (Runtime)" },
+        "nvidia.nemotron-super-3-120b": { "name": "Nemotron Super 3 120B (Runtime)" },
+        "zai.glm-4.7": { "name": "GLM-4.7 (Runtime)" },
+        "moonshot.kimi-k2-thinking": { "name": "Kimi K2 Thinking (Runtime)" },
+        "amazon.nova-pro-v1:0": { "name": "Nova Pro (Runtime)", "limit": { "context": 300000, "output": 10000 } },
+        "us.amazon.nova-2-lite-v1:0": { "name": "Nova 2 Lite (Runtime)" },
+        "google.gemma-3-27b-it": { "name": "Gemma 3 27B (Runtime)" }
+      }
+    },
+    "bedrock-mantle": {
+      "npm": "@ai-sdk/openai",
+      "name": "Bedrock Mantle (codex)",
+      "options": {
+        "baseURL": "http://localhost:8899/openai/v1",
+        "apiKey": "dummy"
+      },
+      "models": {
+        "openai.gpt-5.6-sol": { "name": "GPT-5.6 Sol (Mantle)" }
+      }
     }
   }
 }
