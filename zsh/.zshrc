@@ -5,6 +5,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Deduplicate PATH on every reload (prevents tmux/re-sourcing accumulating dupes).
+# Must precede any PATH mutation. `path` is the array view; `PATH` the string view.
+typeset -U path PATH
+
 # ============================================================================
 # Core - Oh My Zsh
 # ============================================================================
@@ -70,6 +74,7 @@ alias vi='nvim'
 alias viztmux='vi ~/.tmux.conf.local'
 alias viznvim='vi ~/.config/nvim/init.lua'
 alias vizkitty='vi ~/.config/kitty/kitty.conf'
+alias vizherdr='vi ~/.config/herdr/config.toml'
 alias viz='vi ~/.zshrc'
 alias soz='source ~/.zshrc'
 alias soztmux='tmux source-file ~/.tmux.conf'
@@ -87,12 +92,29 @@ opencode() {
     echo "AWS SSO credentials expired. Refreshing..."
     aws sso login --sso-session cb || { echo "SSO login failed."; return 1; }
   fi
+  # SigV4 proxies for the codex-bedrock account (auto-refresh via SSO refresh token):
+  #   :8899 -> bedrock-mantle (GPT-5.x, Responses API)   :8898 -> bedrock-runtime (Converse models)
+  if [ -x ~/go/bin/aws-sigv4-proxy ]; then
+    if ! lsof -ti tcp:8899 &>/dev/null; then
+      AWS_PROFILE=codex-bedrock AWS_SDK_LOAD_CONFIG=true nohup ~/go/bin/aws-sigv4-proxy \
+        --name bedrock-mantle --region us-east-1 \
+        --sign-host bedrock-mantle.us-east-1.api.aws --host bedrock-mantle.us-east-1.api.aws \
+        -s Authorization --port :8899 >~/.cache/sigv4-mantle.log 2>&1 &!
+    fi
+    if ! lsof -ti tcp:8898 &>/dev/null; then
+      AWS_PROFILE=codex-bedrock AWS_SDK_LOAD_CONFIG=true nohup ~/go/bin/aws-sigv4-proxy \
+        --name bedrock --region us-east-1 \
+        --sign-host bedrock-runtime.us-east-1.amazonaws.com --host bedrock-runtime.us-east-1.amazonaws.com \
+        -s Authorization --port :8898 >~/.cache/sigv4-runtime.log 2>&1 &!
+    fi
+  fi
   AWS_PROFILE=cb-bedrock command opencode "$@"
 }
 # alias opencode-dev="AWS_PROFILE=cb-bedrock ~/.local/bin/opencode-dev"
 alias jira='jiratui ui'
 alias mcpinspect='npx @modelcontextprotocol/inspector'
 alias tdaily='~/.tmux/sessions/daily.sh'
+alias hd='herdr'
 if [[ "$(uname)" == "Darwin" ]]; then
     alias toggleNotch=$'open \'xyz.kondor.znotch://v1/manage?action=toggle'\'
     alias volUp='osascript -e "set volume input volume 100"'

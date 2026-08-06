@@ -1,38 +1,39 @@
 {
-  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-4-7",
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
       "variant": "max"
     },
     "hephaestus": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
       "variant": "medium"
     },
     "oracle": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
       "variant": "high"
     },
     "librarian": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6"
+      "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
     },
     "explore": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6"
+      "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
     },
     "prometheus": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-4-7",
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
       "variant": "max"
     },
     "metis": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
       "variant": "max"
     },
     "momus": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
       "variant": "medium"
     },
     "atlas": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6"
+      "model": "amazon-bedrock/us.anthropic.claude-sonnet-5",
+      "variant": "max"
     }
   },
   "disabled_hooks": [
@@ -40,32 +41,37 @@
   ],
   "categories": {
     "visual-engineering": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6"
+      "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
     },
     "ultrabrain": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
       "variant": "max"
     },
     "deep": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
       "variant": "medium"
     },
     "artistry": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6",
+      "model": "amazon-bedrock/us.anthropic.claude-sonnet-5",
       "variant": "high"
     },
     "quick": {
-      "model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0"
+      "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
     },
     "unspecified-low": {
-      "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6"
+      "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
     },
     "unspecified-high": {
-      "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
+      "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
       "variant": "max"
     },
     "writing": {
-      "model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0"
+      "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
     }
+  },
+  "git_master": {
+    "commit_footer": true,
+    "include_co_authored_by": false,
+    "git_env_prefix": "GIT_MASTER=1"
   }
 }

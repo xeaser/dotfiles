@@ -20,7 +20,7 @@ git clone https://github.com/xeaser/dotfiles.git ~/dotfiles && cd ~/dotfiles && 
 ├── kitty/                # Kitty terminal theme + settings
 ├── git/                  # .gitconfig, .gitignore_global
 ├── k9s/                  # Kubernetes UI: aliases, views, cluster templates
-├── opencode/             # AI assistant: config, skills, commands, profiles
+├── opencode/             # AI assistant: config, skills, commands
 ├── caddy/                # Caddyfile reverse proxy
 ├── dns/                  # Homelab DNS config
 ├── finicky/              # macOS browser routing rules
