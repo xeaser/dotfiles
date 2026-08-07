@@ -4,7 +4,3 @@ package-lock.json
 ocx.lock
 mcp/
 profiles/
-
-# local model-diff eval tooling (not shared)
-command/eval-task.md
-skills/model-diff-eval/
