@@ -19,8 +19,9 @@ if [ -s "$NVM_DIR/nvm.sh" ]; then
     \. "$NVM_DIR/nvm.sh"
 fi
 
-# Add bun (where the openchamber binary symlink lives) and Homebrew bin
-export PATH="$HOME/.bun/bin:/opt/homebrew/bin:$PATH"
+# Add standalone opencode (~/.opencode/bin) first so openchamber spawns the unified
+# CLI, then bun (openchamber binary symlink) and Homebrew bin.
+export PATH="$HOME/.opencode/bin:$HOME/.bun/bin:/opt/homebrew/bin:$PATH"
 
 # Source secrets for OPENCHAMBER_UI_PASSWORD
 if [ -f "$HOME/.secrets" ]; then
