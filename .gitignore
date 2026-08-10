@@ -31,3 +31,6 @@ nvim/lua/local/
 
 # oh-my-opencode run/continuation state
 .omo/
+
+# playwright mcp
+.playwright-mcp/
