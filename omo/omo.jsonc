@@ -72,7 +72,7 @@
       }
     },
     "git_master": {
-      "commit_footer": true,
+      "commit_footer": false,
       "include_co_authored_by": false,
       "git_env_prefix": "GIT_MASTER=1"
     }
