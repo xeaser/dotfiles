@@ -8,8 +8,8 @@
 	format = ssh
 [user]
 	signingkey = /Users/psharma/.ssh/id_ed25519.pub
-	name = CloudBees Factory Agent
-	email = factory-agent@cloudbees.com
+	name = Parag Sharma
+	email = sharmarag93@gmail.com
 [commit]
 	gpgsign = true
 [credential "https://github.com"]
@@ -18,7 +18,3 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
-[safe]
-	directory = /var/folders/h9/057c6v717j975wpgy_gnh_500000gn/T/opencode/agentcore-repro/repo
-	directory = /var/folders/h9/057c6v717j975wpgy_gnh_500000gn/T/opencode/agentcore-repro/bp
-	directory = /var/folders/h9/057c6v717j975wpgy_gnh_500000gn/T/opencode/task10-repro/repo
