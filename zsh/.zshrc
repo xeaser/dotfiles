@@ -101,12 +101,12 @@ opencode() {
         --sign-host bedrock-mantle.us-east-1.api.aws --host bedrock-mantle.us-east-1.api.aws \
         -s Authorization --port :8899 >~/.cache/sigv4-mantle.log 2>&1 &!
     fi
-    if ! lsof -ti tcp:8898 &>/dev/null; then
-      AWS_PROFILE=codex-bedrock AWS_SDK_LOAD_CONFIG=true nohup ~/go/bin/aws-sigv4-proxy \
-        --name bedrock --region us-east-1 \
-        --sign-host bedrock-runtime.us-east-1.amazonaws.com --host bedrock-runtime.us-east-1.amazonaws.com \
-        -s Authorization --port :8898 >~/.cache/sigv4-runtime.log 2>&1 &!
-    fi
+    # if ! lsof -ti tcp:8898 &>/dev/null; then
+    #   AWS_PROFILE=codex-bedrock AWS_SDK_LOAD_CONFIG=true nohup ~/go/bin/aws-sigv4-proxy \
+    #     --name bedrock --region us-east-1 \
+    #     --sign-host bedrock-runtime.us-east-1.amazonaws.com --host bedrock-runtime.us-east-1.amazonaws.com \
+    #     -s Authorization --port :8898 >~/.cache/sigv4-runtime.log 2>&1 &!
+    # fi
   fi
   AWS_PROFILE=cb-bedrock command opencode "$@"
 }

@@ -4,7 +4,7 @@
   "[opencode]": {
     "agents": {
       "sisyphus": {
-        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "model": "amazon-bedrock/us.anthropic.claude-opus-5",
         "reasoning": "max"
       },
       "hephaestus": {
@@ -22,16 +22,16 @@
         "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
       },
       "prometheus": {
-        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "model": "amazon-bedrock/us.anthropic.claude-opus-5",
         "reasoning": "max"
       },
       "metis": {
-        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "model": "amazon-bedrock/us.anthropic.claude-opus-5",
         "reasoning": "max"
       },
       "momus": {
-        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
-        "reasoning": "medium"
+        "model": "amazon-bedrock/us.us.anthropic.claude-opus-5",
+        "reasoning": "max"
       },
       "atlas": {
         "model": "amazon-bedrock/us.anthropic.claude-sonnet-5",
@@ -46,11 +46,11 @@
         "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
       },
       "ultrabrain": {
-        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "model": "amazon-bedrock/us.us.anthropic.claude-opus-5",
         "reasoning": "max"
       },
       "deep": {
-        "model": "amazon-bedrock/us.anthropic.claude-opus-4-8",
+        "model": "amazon-bedrock/us.us.anthropic.claude-opus-5",
         "reasoning": "medium"
       },
       "artistry": {

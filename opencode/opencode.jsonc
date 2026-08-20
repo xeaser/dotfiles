@@ -172,6 +172,53 @@
         "GRAFANA_API_KEY": "{env:GRAFANA_API_KEY}"
       },
       "enabled": false
+    },
+    // Bedrock computer use driving THIS Mac's real desktop via Quartz.
+    // Requires Screen Recording + Accessibility granted to the terminal app that
+    // launches opencode. Screenshots are downscaled to 1280 wide and coordinates are
+    // mapped back to logical points (2x Retina), so clicks land where intended.
+    // Interpreter is a uv-managed venv, so `brew upgrade python` cannot break it.
+    // Rebuild deps with: cd ~/.config/opencode/mcp/computer-use && uv sync
+    // Opus 5 does NOT support computer use; Sonnet 5 and Opus 4.8 do.
+    "computer-use": {
+      "type": "local",
+      "command": [
+        "~/.config/opencode/mcp/computer-use/run.sh"
+      ],
+      "environment": {
+        "AWS_PROFILE": "cb-bedrock",
+        "AWS_REGION": "us-east-1",
+        "CU_BACKEND": "macos",
+        "CU_MODEL_ID": "us.anthropic.claude-sonnet-5",
+        "CU_DISPLAY_WIDTH": "1280",
+        "CU_MAX_STEPS": "40",
+        "CU_KEEP_SCREENSHOTS": "3",
+        "CU_ENABLE_BASH": "1"
+      },
+      "enabled": false
+    },
+    // Same server pointed at a throwaway Linux desktop in a container instead of the
+    // Mac. Kept for disposable/risky automation. Enable this and it will start the
+    // container itself; build the image once with:
+    //   docker build -t opencode-computer-use:latest ~/.config/opencode/mcp/computer-use/sandbox
+    "computer-use-sandbox": {
+      "type": "local",
+      "command": [
+        "~/.config/opencode/mcp/computer-use/run.sh"
+      ],
+      "environment": {
+        "AWS_PROFILE": "cb-bedrock",
+        "AWS_REGION": "us-east-1",
+        "CU_BACKEND": "sandbox",
+        "CU_MODEL_ID": "us.anthropic.claude-sonnet-5",
+        "CU_CONTROL_PORT": "8787",
+        "CU_VNC_PORT": "5900",
+        "CU_DISPLAY_WIDTH": "1280",
+        "CU_DISPLAY_HEIGHT": "800",
+        "CU_MAX_STEPS": "40",
+        "CU_KEEP_SCREENSHOTS": "3"
+      },
+      "enabled": false
     }
   },
   "provider": {
@@ -181,38 +228,39 @@
         "profile": "cb-bedrock"
       },
       "whitelist": [
+        "us.anthropic.claude-opus-5",
         "us.anthropic.claude-opus-4-8",
         "us.anthropic.claude-sonnet-5",
         "us.anthropic.claude-haiku-4-5-20251001-v1:0"
       ]
     },
-    "bedrock-codex": {
-      "npm": "@ai-sdk/amazon-bedrock",
-      "name": "Bedrock Codex (Runtime)",
-      "options": {
-        "region": "us-east-1",
-        "baseURL": "http://localhost:8898",
-        "accessKeyId": "dummy",
-        "secretAccessKey": "dummy"
-      },
-      "models": {
-        "openai.gpt-oss-120b-1:0": { "name": "GPT-OSS 120B (Runtime)" },
-        "deepseek.v3.2": { "name": "DeepSeek V3.2 (Runtime)" },
-        "qwen.qwen3-coder-next": { "name": "Qwen3 Coder Next (Runtime)" },
-        "minimax.minimax-m2.5": { "name": "MiniMax M2.5 (Runtime)" },
-        "moonshotai.kimi-k2.5": { "name": "Kimi K2.5 (Runtime)" },
-        "zai.glm-5": { "name": "GLM-5 (Runtime)" },
-        "mistral.devstral-2-123b": { "name": "Devstral 2 123B (Runtime)" },
-        "qwen.qwen3-next-80b-a3b": { "name": "Qwen3 Next 80B (Runtime)" },
-        "mistral.mistral-large-3-675b-instruct": { "name": "Mistral Large 3 (Runtime)" },
-        "nvidia.nemotron-super-3-120b": { "name": "Nemotron Super 3 120B (Runtime)" },
-        "zai.glm-4.7": { "name": "GLM-4.7 (Runtime)" },
-        "moonshot.kimi-k2-thinking": { "name": "Kimi K2 Thinking (Runtime)" },
-        "amazon.nova-pro-v1:0": { "name": "Nova Pro (Runtime)", "limit": { "context": 300000, "output": 10000 } },
-        "us.amazon.nova-2-lite-v1:0": { "name": "Nova 2 Lite (Runtime)" },
-        "google.gemma-3-27b-it": { "name": "Gemma 3 27B (Runtime)" }
-      }
-    },
+    // "bedrock-codex": {
+    //   "npm": "@ai-sdk/amazon-bedrock",
+    //   "name": "Bedrock Codex (Runtime)",
+    //   "options": {
+    //     "region": "us-east-1",
+    //     "baseURL": "http://localhost:8898",
+    //     "accessKeyId": "dummy",
+    //     "secretAccessKey": "dummy"
+    //   },
+    //   "models": {
+    //     "openai.gpt-oss-120b-1:0": { "name": "GPT-OSS 120B (Runtime)" },
+    //     "deepseek.v3.2": { "name": "DeepSeek V3.2 (Runtime)" },
+    //     "qwen.qwen3-coder-next": { "name": "Qwen3 Coder Next (Runtime)" },
+    //     "minimax.minimax-m2.5": { "name": "MiniMax M2.5 (Runtime)" },
+    //     "moonshotai.kimi-k2.5": { "name": "Kimi K2.5 (Runtime)" },
+    //     "zai.glm-5": { "name": "GLM-5 (Runtime)" },
+    //     "mistral.devstral-2-123b": { "name": "Devstral 2 123B (Runtime)" },
+    //     "qwen.qwen3-next-80b-a3b": { "name": "Qwen3 Next 80B (Runtime)" },
+    //     "mistral.mistral-large-3-675b-instruct": { "name": "Mistral Large 3 (Runtime)" },
+    //     "nvidia.nemotron-super-3-120b": { "name": "Nemotron Super 3 120B (Runtime)" },
+    //     "zai.glm-4.7": { "name": "GLM-4.7 (Runtime)" },
+    //     "moonshot.kimi-k2-thinking": { "name": "Kimi K2 Thinking (Runtime)" },
+    //     "amazon.nova-pro-v1:0": { "name": "Nova Pro (Runtime)", "limit": { "context": 300000, "output": 10000 } },
+    //     "us.amazon.nova-2-lite-v1:0": { "name": "Nova 2 Lite (Runtime)" },
+    //     "google.gemma-3-27b-it": { "name": "Gemma 3 27B (Runtime)" }
+    //   }
+    // },
     "bedrock-mantle": {
       "npm": "@ai-sdk/openai",
       "name": "Bedrock Mantle (codex)",
