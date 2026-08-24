@@ -55,6 +55,14 @@ export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
 export PATH=$PATH:/opt/homebrew/opt/postgresql/bin
 export PATH=$PATH:/Users/psharma/Library/Python/3.9/bin
 
+# Homebrew python3 and curl ahead of Apple's (/usr/bin ships 3.9.6 and curl 8.7.1).
+# Two dirs are needed: libexec/bin holds the unversioned python/pip, bin holds
+# python3/pip3. The python@3 symlink tracks whatever brew's current python3 is,
+# so a 3.15 bump needs no edit here.
+export PATH="/opt/homebrew/opt/python@3/libexec/bin:/opt/homebrew/opt/python@3/bin:$PATH"
+# curl is keg-only -- brew never symlinks it, so it must be named explicitly.
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+
 
 # ============================================================================
 # Secrets
