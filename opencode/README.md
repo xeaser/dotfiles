@@ -31,7 +31,17 @@ Reusable skill definitions that agents can invoke:
 |-------|-------------|
 | `aws-sso-reauth/` | Detect expired AWS SSO credentials and re-authenticate |
 | `ci-status/` | Check CloudBees CI workflow status, build results, and logs |
+| `code-review/` | Review GitHub pull requests with structured, severity-based findings |
 | `pr-status/` | Check GitHub PR status, comments, and review feedback |
+| `browser-testing-with-devtools/` | Test in real browsers via Chrome DevTools MCP -- DOM, console, network, performance |
+| `context-engineering/` | Optimize agent context setup, rules files, and per-task context |
+| `documentation-and-adrs/` | Record architectural decisions and documentation for future engineers |
+| `doubt-driven-development/` | Adversarially review non-trivial decisions with fresh context before committing to them |
+| `frontend-design/` | Guidance for distinctive, intentional visual design (Apache-2.0) |
+| `frontend-ui-engineering/` | Build production-quality, accessible, responsive UIs |
+| `using-agent-skills/` | Meta-skill: discover and invoke the right skill for a task |
+
+> The last seven were added from the openchamber skills catalog.
 
 ## Excluded Directories
 
