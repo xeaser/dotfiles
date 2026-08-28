@@ -48,6 +48,20 @@
       "url": "https://knowledge-mcp.global.api.aws",
       "enabled": true
     },
+    "aws-mcp": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "mcp-proxy-for-aws@1.6.4",
+        "https://aws-mcp.us-east-1.api.aws/mcp",
+        "--metadata",
+        "AWS_REGION=us-east-1"
+      ],
+      "environment": {
+        "AWS_PROFILE": "cb-factory"
+      },
+      "enabled": true
+    },
     "github": {
       "type": "remote",
       "url": "https://api.githubcopilot.com/mcp/",
