@@ -233,7 +233,41 @@
         "CU_KEEP_SCREENSHOTS": "3"
       },
       "enabled": false
+    },
+    // trycua Cua Driver: accessibility-tree macOS computer use. Daemon path proxies to
+    // CuaDriver.app (stable TCC identity + cursor overlay). Start: open -g -a CuaDriver --args serve
+    "cua-daemon": {
+      "type": "local",
+      "command": [
+        "cua-driver",
+        "mcp"
+      ],
+      "enabled": true
+    },
+    // Alternative: MCP process owns the runtime, uses the launching terminal's TCC identity, no overlay.
+    // Enable only one of cua-daemon / cua-direct.
+    "cua-direct": {
+      "type": "local",
+      "command": [
+        "cua-driver",
+        "mcp",
+        "--direct"
+      ],
+      "environment": {
+        "CUA_DRIVER_PERMISSION_MODE": "standard"
+      },
+      "enabled": false
     }
+  },
+  // Disable cua browser tools: browser_prepare's top-level anyOf breaks Anthropic/Bedrock
+  // (trycua/cua#3303). Browsers are handled by playwright/chrome-devtools instead.
+  "tools": {
+    "cua-daemon_browser*": false,
+    "cua-daemon_page": false,
+    "cua-daemon_get_browser_state": false,
+    "cua-direct_browser*": false,
+    "cua-direct_page": false,
+    "cua-direct_get_browser_state": false
   },
   "provider": {
     "amazon-bedrock": {
