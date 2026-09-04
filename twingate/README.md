@@ -93,7 +93,7 @@ UDP/ICMP off.
 | `GitHub Pages`        | `*.github.io`            | `UmVzb3VyY2U6MzU1MzYzNQ==`        |
 
 `GitHub` reuses the slot of an earlier resource (originally
-`Github Proxy / 192.168.1.18:8888`) by renaming + repointing it.
+`Github Proxy / 192.168.1.12:8888`) by renaming + repointing it.
 
 ### Other resources (informational, pre-existing)
 

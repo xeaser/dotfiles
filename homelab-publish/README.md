@@ -31,8 +31,8 @@ The script picks the interface owning the **default route** at the moment it
 fires (via `route -n get default`), then `ipconfig getifaddr` for that
 interface. So:
 
-- Wi-Fi up, Ethernet down → Wi-Fi IP pushed (e.g. `192.168.1.18`)
-- Ethernet up, Wi-Fi off/down → Ethernet IP pushed (e.g. `192.168.1.6`)
+- Wi-Fi up, Ethernet down → Wi-Fi IP pushed (e.g. `192.168.1.12`)
+- Ethernet up, Wi-Fi off/down → Ethernet IP pushed (e.g. `192.168.1.2`)
 - Both up → whichever owns the default route (usually Ethernet if its service
   order is higher; Service Order is set in System Settings → Network)
 - Wi-Fi disconnects mid-session → resolv.conf rewrites → LaunchAgent fires
@@ -55,8 +55,8 @@ Two things matter:
    has `address=/.homelab/192.168.1.222` as the wildcard default for any
    `*.homelab` name. dnsmasq's `address=` directive resolves *authoritatively*
    and bypasses hosts files entirely, so an `addn-hosts` entry like
-   `192.168.1.18 macbook-arena.homelab` is silently ignored. A second, more
-   specific `address=/macbook-arena.homelab/192.168.1.18` *does* override the
+   `192.168.1.12 macbook-arena.homelab` is silently ignored. A second, more
+   specific `address=/macbook-arena.homelab/192.168.1.12` *does* override the
    wildcard because dnsmasq picks the longest-match rule.
 2. **`systemctl restart dnsmasq`, not `reload`** — `SIGHUP` (what `reload` sends)
    only re-reads `/etc/hosts` and `addn-hosts` files. It does **not** re-read

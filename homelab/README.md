@@ -122,6 +122,13 @@ runs in `network_mode: host`, so it binds `:80` directly on the homelab box.
 There is also a system-installed `caddy` package present but its `caddy.service`
 is `disabled` - the Docker container is the one actually serving traffic.
 
+> **Agents/humans:** the live config is the docker-mounted file above
+> (`/home/zephyr/Extra/Misc/homelab/configs/caddy/Caddyfile`). Do **not** read or
+> edit the host `/etc/caddy/Caddyfile` — that belongs to the disabled stock
+> `caddy` package and is *not* what serves traffic. Validate/reload via the
+> container: `docker exec caddy caddy validate --config /etc/caddy/Caddyfile
+> --adapter caddyfile && docker restart caddy`.
+
 The Caddyfile reverse-proxies `*.homelab` subdomains to local services (most are
 `127.0.0.1:<port>` since the box runs all of them). The interesting one is the
 `openchamber.homelab` block, which proxies to *this laptop*:
@@ -336,7 +343,7 @@ laptop's Caddy           homelab's Caddy
    ▼                     header_up Host openchamber.homelab
 127.0.0.1:4096                │
 (openchamber                  ▼
- LaunchAgent)            laptop:80 (.18 primary, .6 failover)
+ LaunchAgent)            laptop:80 (via macbook-arena.homelab -> .2)
                               │
                               ▼
                          laptop's Caddy
