@@ -42,7 +42,6 @@ Prefix is `Ctrl+a` (rebound from default `Ctrl+b`).
 
 | Shortcut | Action |
 |----------|--------|
-| `prefix + T` | sesh session picker via fzf |
 | `prefix + Z` | tmux-fzf launcher |
 | `prefix + Space` | tmux-thumbs copy hints |
 | `prefix + s` | Spotify controls |

@@ -376,9 +376,6 @@ unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
 
-# sesh - smart session manager
-bind-key "T" run-shell "sesh connect \"$(sesh list | fzf-tmux -p 55%,60% --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ')\""
-
 
 # if you don't want Oh my tmux! to alter a binding, use #!important
 # bind c new-window -c '#{pane_current_path}' #!important

@@ -48,7 +48,7 @@ Shows a color-coded report: green = installed, red = missing, blue = needs linki
 | Tool | Description |
 |------|-------------|
 | **zsh** | Oh My Zsh + Powerlevel10k with fzf-tab, autosuggestions, fast-syntax-highlighting, atuin, zoxide, direnv |
-| **tmux** | oh-my-tmux with gruvbox theme, gitmux status, spotify, session management via sesh |
+| **tmux** | oh-my-tmux with gruvbox theme, gitmux status, spotify, session management |
 | **nvim** | LazyVim with 21 extras: gruvbox-material theme, NeoTree, DAP debugging, neotest, illuminate, aerial, navic, indent-blankline, avante (AI), opencode.nvim, project manager. See [cheatsheet](nvim/cheatsheet.md) |
 | **kitty** | Gruvbox dark theme, Nerd Fonts, powerline tabs |
 | **k9s** | Kubernetes terminal UI with custom aliases (dp, sec, jo), pod column layouts with image versions and resource usage |
@@ -88,7 +88,6 @@ Sourced automatically by `.zshrc`.
 
 | Shortcut | Action |
 |----------|--------|
-| `prefix + T` | sesh session picker (fzf) |
 | `prefix + Z` | tmux-fzf launcher |
 | `prefix + Space` | tmux-thumbs (copy hints) |
 | `F12` | Suspend tmux (nested sessions) |
@@ -136,7 +135,7 @@ sudo apt install zsh tmux neovim fzf kitty git curl
 sudo pacman -S zsh tmux neovim fzf kitty git curl
 ```
 
-Then install tools not in distro repos (zoxide, atuin, sesh, gitmux, lazygit, direnv) via their official install instructions or Homebrew for Linux.
+Then install tools not in distro repos (zoxide, atuin, gitmux, lazygit, direnv) via their official install instructions or Homebrew for Linux.
 
 **macOS-only features** (skipped automatically on Linux):
 - `toggleNotch`, `volUp` aliases (osascript)

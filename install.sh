@@ -373,7 +373,7 @@ fi
 
 section "CLI Tools"
 
-cli_tools=(brew git nvim tmux kitty fzf zoxide atuin direnv sesh gitmux lazygit)
+cli_tools=(brew git nvim tmux kitty fzf zoxide atuin direnv gitmux lazygit)
 
 for tool in "${cli_tools[@]}"; do
     if command -v "$tool" &>/dev/null; then
