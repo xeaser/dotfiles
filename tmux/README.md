@@ -53,14 +53,12 @@ Prefix is `Ctrl+a` (rebound from default `Ctrl+b`).
 
 ## Sessions
 
-Session layout scripts live in `sessions/`. These recreate named tmux sessions with predefined windows and commands.
-
 ### daily
 
 Six-window dev session: general shell, k9s, nvim, jira, homelab SSH, opencode.
 
 ```bash
-./sessions/daily.sh    # Creates and attaches (or attaches if exists)
+tdaily    # alias for: tmux new-session -A -s daily
 ```
 
-The `tdaily` alias in `.zshrc` points to this script. Add more session scripts as needed following the same pattern.
+The `tdaily` alias in `.zshrc` creates or attaches the `daily` session. tmux-continuum (`@continuum-restore 'on'`) auto-restores the saved window layout on server start via tmux-resurrect.

@@ -246,6 +246,9 @@ else
     else
         info "Cloning oh-my-tmux..."
         git clone https://github.com/gpakosz/.tmux.git "$HOME/.tmux"
+        # Pin: the newer oh-my-tmux engine deadlocks on macOS 26 (_apply_configuration);
+        # 87dcd13 is the last working version. Only edit ~/.tmux.conf.local, not the engine.
+        git -C "$HOME/.tmux" checkout 87dcd13
         info "oh-my-tmux installed"
     fi
 fi
@@ -272,9 +275,6 @@ backup_and_link "$DOTFILES_DIR/tmux/.gitmux.conf"       "$HOME/.gitmux.conf"
 
 mkdir -p "$HOME/.tmux/scripts" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/tmux/scripts/spotify.sh" "$HOME/.tmux/scripts/spotify.sh"
-
-mkdir -p "$HOME/.tmux/sessions" 2>/dev/null || true
-backup_and_link "$DOTFILES_DIR/tmux/sessions/daily.sh"  "$HOME/.tmux/sessions/daily.sh"
 
 if $DRY_RUN; then
     local_nvim="$HOME/.config/nvim"
