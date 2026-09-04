@@ -259,16 +259,6 @@
       "enabled": false
     }
   },
-  // Disable cua browser tools: browser_prepare's top-level anyOf breaks Anthropic/Bedrock
-  // (trycua/cua#3303). Browsers are handled by playwright/chrome-devtools instead.
-  "tools": {
-    "cua-daemon_browser*": false,
-    "cua-daemon_page": false,
-    "cua-daemon_get_browser_state": false,
-    "cua-direct_browser*": false,
-    "cua-direct_page": false,
-    "cua-direct_get_browser_state": false
-  },
   "provider": {
     "amazon-bedrock": {
       "options": {
