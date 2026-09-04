@@ -85,7 +85,7 @@ Anything on home Wi-Fi (no Twingate)
         │
         └── http://openchamber.homelab
                 └── dnsmasq → 192.168.1.222 (homelab) :80
-                    └── homelab Caddy → laptop:80 (.18 primary, .6 failover)
+                    └── homelab Caddy (docker caddy:2) → macbook-arena.homelab:80 (→ .2 laptop)
                         └── laptop Caddy → 127.0.0.1:4096
 ```
 
@@ -108,5 +108,5 @@ the service binds loopback only and uses the environment variable. Treat
 
 - `~/.secrets` — `OPENCHAMBER_UI_PASSWORD`
 - `caddy/Caddyfile` (laptop side) — reverse-proxies `openchamber.homelab` → `127.0.0.1:4096`
-- `homelab/README.md` — homelab Caddy config that fails over between this laptop's interfaces
+- `homelab/README.md` — homelab Caddy (docker `caddy:2` container; live config at `/home/zephyr/Extra/Misc/homelab/configs/caddy/Caddyfile`, **not** the host `/etc/caddy/Caddyfile`) that proxies `openchamber.homelab` to this laptop via `macbook-arena.homelab`
 - `twingate/README.md` — Twingate `Openchamber (Work Mac direct)` resource
