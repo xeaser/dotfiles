@@ -1,0 +1,12 @@
+# Trust store for `git log --show-signature`, `%G?` and `git verify-commit`.
+# SSH has no keyring, so git cannot infer trust from user.signingkey -- without
+# this file every verification command errors out instead of reporting a result.
+#
+# Format: <principal> [options] <keytype> <base64-key>
+# The principal is the identity the key is trusted as, and is what git reports
+# as %GS. It is matched by key, not by committer email, so it is set to the
+# commit email to keep the reported signer consistent with authored commits.
+# namespaces="git" limits the trust to git signatures, so the key is not
+# implicitly trusted for other ssh-keygen -Y signing namespaces.
+
+sharmarag93@gmail.com namespaces="git" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINf9dTwLNdHWj+m8X0DP8xX0WiUQUMZ+7Yp3671aZfKY
