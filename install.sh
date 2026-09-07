@@ -316,6 +316,9 @@ if [ -f "$DOTFILES_DIR/git/.gitconfig" ]; then
 fi
 backup_and_link "$DOTFILES_DIR/git/.gitignore_global"   "$HOME/.gitignore_global"
 
+mkdir -p "$HOME/.ssh" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/git/allowed_signers"     "$HOME/.ssh/allowed_signers"
+
 # finicky
 mkdir -p "$HOME/.config/finicky" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/finicky/finicky.ts"        "$HOME/.config/finicky/finicky.ts"
