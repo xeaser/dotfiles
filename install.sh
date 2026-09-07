@@ -268,6 +268,8 @@ fi
 
 section "Symlinks"
 
+backup_and_link "$DOTFILES_DIR/zsh/.zshenv"             "$HOME/.zshenv"
+backup_and_link "$DOTFILES_DIR/zsh/.zprofile"           "$HOME/.zprofile"
 backup_and_link "$DOTFILES_DIR/zsh/.zshrc"              "$HOME/.zshrc"
 backup_and_link "$DOTFILES_DIR/zsh/.p10k.zsh"           "$HOME/.p10k.zsh"
 backup_and_link "$DOTFILES_DIR/tmux/.tmux.conf.local"   "$HOME/.tmux.conf.local"
