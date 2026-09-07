@@ -5,8 +5,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Deduplicate PATH on every reload (prevents tmux/re-sourcing accumulating dupes).
-# Must precede any PATH mutation. `path` is the array view; `PATH` the string view.
+# PATH and base env vars live in ~/.zshenv so non-interactive shells get them
+# too (this file is interactive-only). See zsh/.zshenv and zsh/.zprofile.
 typeset -U path PATH
 
 # ============================================================================
@@ -23,8 +23,6 @@ COMPLETION_WAITING_DOTS="true"
 
 plugins=(git jiratui helm go-task-completions kubectl-autocomplete opscore you-should-use zsh-completions zsh-history-substring-search fzf-tab zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete tilt)
 
-export PATH=$PATH:$HOME/bin:$HOME/dotfiles/zsh/scripts
-
 source $ZSH/oh-my-zsh.sh
 
 # Must come after zsh-autocomplete to work properly
@@ -33,35 +31,18 @@ compdef _task task
 # ============================================================================
 # Environment Variables
 # ============================================================================
-export GOPATH=/Users/psharma/go
+# GOPATH, EDITOR, BUN_INSTALL and NVM_DIR are set in ~/.zshenv.
 export GOOGLE_CLOUD_PROJECT=ai-workshop-442209
 export K9S_CONFIG_DIR='/Users/psharma/.config/k9s'
-export EDITOR='nvim'
 export COLORTERM=truecolor
-export BUN_INSTALL="$HOME/.bun"
-export NVM_DIR="$HOME/.nvm"
 export CLOUDBEES_ORG_ID="0bf1ea4f-2aca-4be2-9339-86287204e6c5"
 
 # ============================================================================
 # PATH
 # ============================================================================
-export PATH=$PATH:$GOPATH/bin
-export PATH="/Users/psharma/.antigravity/antigravity/bin:$PATH"
-export PATH="$PATH:/Users/psharma/.lmstudio/bin"
-export PATH=$PATH:/Users/psharma/.local/bin
-export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH=/Users/psharma/.opencode/bin:$PATH
-export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
-export PATH=$PATH:/opt/homebrew/opt/postgresql/bin
-export PATH=$PATH:/Users/psharma/Library/Python/3.9/bin
-
-# Homebrew python3 and curl ahead of Apple's (/usr/bin ships 3.9.6 and curl 8.7.1).
-# Two dirs are needed: libexec/bin holds the unversioned python/pip, bin holds
-# python3/pip3. The python@3 symlink tracks whatever brew's current python3 is,
-# so a 3.15 bump needs no edit here.
-export PATH="/opt/homebrew/opt/python@3/libexec/bin:/opt/homebrew/opt/python@3/bin:$PATH"
-# curl is keg-only -- brew never symlinks it, so it must be named explicitly.
-export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+# Defined in ~/.zshenv. Re-called here because oh-my-zsh and its plugins mutate
+# PATH above; re-prepending restores our precedence (idempotent via typeset -U).
+(( $+functions[dotfiles_path] )) && dotfiles_path
 
 
 # ============================================================================
