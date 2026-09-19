@@ -30,7 +30,7 @@
         "reasoning": "max"
       },
       "momus": {
-        "model": "amazon-bedrock/us.us.anthropic.claude-opus-5",
+        "model": "amazon-bedrock/us.anthropic.claude-opus-5",
         "reasoning": "max"
       },
       "atlas": {
@@ -46,11 +46,11 @@
         "model": "amazon-bedrock/us.anthropic.claude-sonnet-5"
       },
       "ultrabrain": {
-        "model": "amazon-bedrock/us.us.anthropic.claude-opus-5",
+        "model": "amazon-bedrock/us.anthropic.claude-opus-5",
         "reasoning": "max"
       },
       "deep": {
-        "model": "amazon-bedrock/us.us.anthropic.claude-opus-5",
+        "model": "amazon-bedrock/us.anthropic.claude-opus-5",
         "reasoning": "medium"
       },
       "artistry": {
