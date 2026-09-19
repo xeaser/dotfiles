@@ -310,6 +310,7 @@
         "gpt-5.6-sol": {
           "name": "GPT-5.6 Sol (Mantle)", "id": "openai.gpt-5.6-sol",
           "reasoning": true,
+          "limit": { "context": 1000000, "output": 65536 },
           "options": { "reasoningEffort": "medium" },
           "variants": {
             "low":    { "reasoningEffort": "low" },
@@ -322,6 +323,7 @@
         "gpt-5.6-luna": {
           "name": "GPT-5.6 Luna (Mantle)", "id": "openai.gpt-5.6-luna",
           "reasoning": true,
+          "limit": { "context": 1000000, "output": 65536 },
           "options": { "reasoningEffort": "medium" },
           "variants": {
             "low":    { "reasoningEffort": "low" },
@@ -334,6 +336,7 @@
         "gpt-5.6-terra": {
           "name": "GPT-5.6 Terra (Mantle)", "id": "openai.gpt-5.6-terra",
           "reasoning": true,
+          "limit": { "context": 1000000, "output": 65536 },
           "options": { "reasoningEffort": "medium" },
           "variants": {
             "low":    { "reasoningEffort": "low" },
@@ -346,6 +349,7 @@
         "gpt-5.5": {
           "name": "GPT-5.5 (Mantle)", "id": "openai.gpt-5.5",
           "reasoning": true,
+          "limit": { "context": 1000000, "output": 65536 },
           "options": { "reasoningEffort": "medium" },
           "variants": {
             "low":    { "reasoningEffort": "low" },
