@@ -76,6 +76,9 @@ alias vizaws='vi ~/.aws/config'
 alias k='kubectl'
 alias homelab='ssh homelab'
 alias ssologin='aws sso login --sso-session cb'
+omo() {
+  bunx --bun oh-my-openagent "$@"
+}
 opencode() {
   if ! aws sts get-caller-identity --profile cb-bedrock &>/dev/null; then
     echo "AWS SSO credentials expired. Refreshing..."
