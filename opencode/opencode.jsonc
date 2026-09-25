@@ -266,6 +266,7 @@
         "profile": "cb-bedrock"
       },
       "whitelist": [
+        "us.anthropic.claude-opus-5-5",
         "us.anthropic.claude-opus-5",
         "us.anthropic.claude-opus-4-8",
         "us.anthropic.claude-sonnet-5",
