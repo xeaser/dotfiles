@@ -7,10 +7,15 @@
 | File | Purpose |
 |------|---------|
 | `opencode.jsonc` | Main config: plugins, MCP server definitions, provider settings. **Sanitized** -- replace `YOUR_PASSWORD` and `YOUR_ORG_ID` placeholders with real values. |
+| `cli.json` | CLI surface overrides (v2): plugins, diff wrap, session UI, animations |
+| `tui.json` | TUI surface overrides (v2): plugins |
+| `service.json` | Local service auth. Password templated via `{env:OPENCODE_SERVICE_PASSWORD}`, set in `~/.secrets` |
 | `ocx.jsonc` | OCX extension manager config and registry settings |
 | `oh-my-openagent.json` | Agent model routing -- maps each agent (sisyphus, oracle, explore, etc.) and task category to a specific model and variant |
 | `dcp.jsonc` | Dynamic Context Pruning plugin config |
 | `package.json` | Plugin dependencies managed by bun/npm |
+
+All `{env:VAR}` references (here and in `opencode.jsonc`) are resolved by opencode from the process environment, populated via `~/.secrets` (see root README's Secrets Management section).
 
 ## Directories
 
