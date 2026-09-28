@@ -58,7 +58,8 @@
         "AWS_REGION=us-east-1"
       ],
       "environment": {
-        "AWS_PROFILE": "cb-factory"
+        "AWS_PROFILE": "cb-factory",
+        "UV_CACHE_DIR": "/Volumes/Work/.cache/uv"
       },
       "enabled": true
     },
