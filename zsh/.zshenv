@@ -16,6 +16,10 @@ export BUN_INSTALL="$HOME/.bun"
 export NVM_DIR="$HOME/.nvm"
 export EDITOR='nvim'
 
+# uv cache on the same APFS volume as projects so clone/hardlink works
+# (links can't cross volumes). Guarded in case the volume isn't mounted.
+[[ -d /Volumes/Work ]] && export UV_CACHE_DIR="/Volumes/Work/.cache/uv"
+
 # Single source of truth for PATH. Called here for every shell, and again from
 # .zprofile because /etc/zprofile runs path_helper after this file and rebuilds
 # PATH with /etc/paths entries first, demoting everything prepended below.
