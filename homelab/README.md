@@ -249,6 +249,10 @@ The homelab Caddy reverse-proxies `openchamber.homelab` to
 is owned by the homelab's own dnsmasq and is continuously refreshed to point
 at whichever IP the laptop currently holds on its default-route interface.
 
+The laptop's IPs are static: Wi-Fi `192.168.1.220`, Ethernet
+`192.168.1.221`. See `../homelab-publish/README.md` for details. So in
+practice the publisher only switches between those two.
+
 ```
 laptop network change                    (Wi-Fi/Ethernet hot-swap, DHCP renewal, sleep/wake)
         │

@@ -2,8 +2,8 @@
 
 LaunchAgent that pushes this laptop's current LAN IP to the homelab dnsmasq
 under a stable hostname (`macbook-arena.homelab`). The homelab Caddy uses
-that name as a `reverse_proxy` upstream, so when the laptop's IP drifts the
-homelab side keeps working with no manual edits.
+that name as a `reverse_proxy` upstream, so when the laptop switches between
+Wi-Fi and Ethernet the homelab side keeps working with no manual edits.
 
 ## How it triggers
 
@@ -31,8 +31,8 @@ The script picks the interface owning the **default route** at the moment it
 fires (via `route -n get default`), then `ipconfig getifaddr` for that
 interface. So:
 
-- Wi-Fi up, Ethernet down → Wi-Fi IP pushed (e.g. `192.168.1.12`)
-- Ethernet up, Wi-Fi off/down → Ethernet IP pushed (e.g. `192.168.1.2`)
+- Wi-Fi up, Ethernet down → Wi-Fi IP pushed (`192.168.1.220`)
+- Ethernet up, Wi-Fi off/down → Ethernet IP pushed (`192.168.1.221`)
 - Both up → whichever owns the default route (usually Ethernet if its service
   order is higher; Service Order is set in System Settings → Network)
 - Wi-Fi disconnects mid-session → resolv.conf rewrites → LaunchAgent fires
@@ -40,6 +40,33 @@ interface. So:
 
 Only a *single* IP is in dnsmasq at any time. Failover at the Caddy
 load-balancer level is no longer needed because dnsmasq itself swaps the IP.
+
+### Laptop IPs are static
+
+The laptop's LAN IPs are set manually in macOS (System Settings → Network →
+Details → TCP/IP → Configure IPv4: Manually), because the router (Genexis
+Titanium-2122A, Airtel ONT) has no DHCP reservation feature:
+
+| Interface | MAC | IP |
+|---|---|---|
+| Wi-Fi `en0` | `c0:c7:db:06:30:cb` | `192.168.1.220` |
+| AX88179A Ethernet `en8` | `c8:a3:62:90:8f:c1` | `192.168.1.221` |
+
+Both use gateway `192.168.1.1`, mask `255.255.255.0`. The homelab itself is
+`192.168.1.222`, also static (NetworkManager on the homelab). The router's
+DHCP pool fills bottom-up and has never gone past the low `.20`s, so the
+`.220`+ range stays clear.
+
+With static IPs the only thing the publisher still tracks is *which*
+interface owns the default route. If the laptop's IP ever looks wrong here,
+check `ipconfig getifaddr en0` / `en8` before suspecting DHCP. Old notes and
+logs may mention `192.168.1.2` / `192.168.1.12`; those were DHCP leases from
+before the switch and now belong to other devices.
+
+Don't hardcode `address=/openchamber.homelab/<laptop-ip>` in dnsmasq to bypass
+the homelab Caddy. It skips this publisher and goes stale silently.
+`openchamber.homelab` should resolve to the homelab via the `*.homelab`
+wildcard.
 
 ## Bootstrap (first-time install)
 
@@ -55,8 +82,8 @@ Two things matter:
    has `address=/.homelab/192.168.1.222` as the wildcard default for any
    `*.homelab` name. dnsmasq's `address=` directive resolves *authoritatively*
    and bypasses hosts files entirely, so an `addn-hosts` entry like
-   `192.168.1.12 macbook-arena.homelab` is silently ignored. A second, more
-   specific `address=/macbook-arena.homelab/192.168.1.12` *does* override the
+   `192.168.1.221 macbook-arena.homelab` is silently ignored. A second, more
+   specific `address=/macbook-arena.homelab/192.168.1.221` *does* override the
    wildcard because dnsmasq picks the longest-match rule.
 2. **`systemctl restart dnsmasq`, not `reload`** — `SIGHUP` (what `reload` sends)
    only re-reads `/etc/hosts` and `addn-hosts` files. It does **not** re-read
