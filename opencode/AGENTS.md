@@ -1,0 +1,1 @@
+plugin/shell-strategy/shell_strategy.md

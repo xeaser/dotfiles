@@ -14,8 +14,11 @@ k9s/clusters/
 # opencode
 opencode/node_modules/
 opencode/plugin/**
+opencode/plugin-disabled/
 # herdr-managed opencode integration (regenerate: herdr integration install opencode)
 opencode/plugins/herdr-agent-state.js
+opencode/herdr-tui-session.js
+opencode/herdr-opencode/
 opencode/mcp/
 opencode/*.lock
 opencode/*.lockb

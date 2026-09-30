@@ -1,7 +1,7 @@
 {
   "$schema": "https://opencode.ai/v2/cli.json",
   "plugins": [
-    "oh-my-openagent@latest"
+    "./herdr-opencode"
   ],
   "diffs": {
     "wrap": "word"
@@ -11,5 +11,13 @@
     "scrollbar": false,
     "thinking": "hide"
   },
-  "animations": true
+  "animations": true,
+  "attention": {
+    "notifications": true,
+    "sound": true,
+    "sounds": {
+      "done": "/Users/psharma/.config/opencode/plugin/notificator-sounds/ding1.mp3",
+      "permission": "/Users/psharma/.config/opencode/plugin/notificator-sounds/ding2.mp3"
+    }
+  }
 }
