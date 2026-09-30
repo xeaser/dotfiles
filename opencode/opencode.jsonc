@@ -243,7 +243,7 @@
         "cua-driver",
         "mcp"
       ],
-      "enabled": false
+      "enabled": true
     },
     // Alternative: MCP process owns the runtime, uses the launching terminal's TCC identity, no overlay.
     // Enable only one of cua-daemon / cua-direct.
