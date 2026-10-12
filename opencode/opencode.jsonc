@@ -39,6 +39,13 @@
         "url": "https://mcp.atlassian.com/v1/mcp",
         "disabled": false
       },
+      // CloudBees Factory's own MCP server. OAuth sign-in on first connect
+      // (Factory is both the authorization and the resource server).
+      "factory": {
+        "type": "remote",
+        "url": "https://factory.beescloud.com/mcp",
+        "disabled": false
+      },
       "aws-knowledge": {
         "type": "remote",
         "url": "https://knowledge-mcp.global.api.aws",
