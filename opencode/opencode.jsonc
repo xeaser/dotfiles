@@ -37,14 +37,16 @@
       "rovo": {
         "type": "remote",
         "url": "https://mcp.atlassian.com/v1/mcp",
-        "disabled": false
+        "disabled": false,
+        "codemode": true
       },
       // CloudBees Factory's own MCP server. OAuth sign-in on first connect
       // (Factory is both the authorization and the resource server).
       "factory": {
         "type": "remote",
         "url": "https://factory.beescloud.com/mcp",
-        "disabled": false
+        "disabled": false,
+        "codemode": true
       },
       "aws-knowledge": {
         "type": "remote",
@@ -141,7 +143,8 @@
           "client_id": "public-mcp-client",
           "redirect_uri": "http://localhost:19876/mcp/oauth/callback"
         },
-        "disabled": true
+        "disabled": false,
+        "codemode": true
       },
       "unify-preprod": {
         "type": "remote",
@@ -380,5 +383,6 @@
         }
       }
     }
-  }
+  },
+  "warming": true
 }
