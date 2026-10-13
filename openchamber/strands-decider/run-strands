@@ -1,0 +1,10 @@
+#!/bin/zsh
+# Launcher for the OpenChamber Auto-routing classifier (Strands Decider 2B).
+# Started by the dev.openchamber.strands-decider-classifier LaunchAgent.
+export STRANDS_HOME="${STRANDS_HOME:-/Volumes/Work/Model/strands}"
+export HF_HOME="$STRANDS_HOME/hf"
+[ -d "$HF_HOME/hub" ] && export HF_HUB_OFFLINE=1
+
+# Exit non-zero if the volume is not mounted; launchd retries (ThrottleInterval).
+cd "$STRANDS_HOME" || exit 1
+exec "$STRANDS_HOME/.venv/bin/python" "${0:A:h}/serve_logged.py"
