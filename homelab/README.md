@@ -147,7 +147,7 @@ http://openchamber.homelab {
   the laptop's `homelab-publish` LaunchAgent on every network change. See
   `../homelab-publish/README.md` for the publish flow.
 - The laptop's own Caddy reverse-proxies `Host: openchamber.homelab` to
-  `127.0.0.1:4096` where the openchamber LaunchAgent is listening (see
+  `127.0.0.1:57123` where the OpenChamber desktop app's server is listening (see
   `../openchamber/README.md`).
 - `header_up Host openchamber.homelab` ensures the laptop's Caddy receives
   the canonical `Host` header rather than `macbook-arena.homelab:80`, so the
@@ -186,7 +186,7 @@ It rides through *two* Caddy instances cooperating:
 | Caddy | Where | Listens | What it does |
 |---|---|---|---|
 | Homelab Caddy | `caddy:2` Docker container, host net | homelab `:80` | All `*.homelab`. For most names, reverse-proxies to `127.0.0.1:<port>` on the homelab. For `openchamber.homelab`, reverse-proxies to the laptop's Caddy via `macbook-arena.homelab:80` |
-| Laptop Caddy | Homebrew (`homebrew.mxcl.caddy`) | laptop `:80` | A single `http://openchamber.homelab` site that reverse-proxies to `127.0.0.1:4096` (the openchamber LaunchAgent) |
+| Laptop Caddy | Homebrew (`homebrew.mxcl.caddy`) | laptop `:80` | A single `http://openchamber.homelab` site that reverse-proxies to `127.0.0.1:57123` (the OpenChamber desktop app's server) |
 
 The two-Caddy design isn't redundant — it exists because openchamber must be
 reachable via three independent ingress paths that all converge on laptop
@@ -202,7 +202,7 @@ reachable via three independent ingress paths that all converge on laptop
    laptop `:80`
 
 All three terminate at laptop Caddy, which serves the openchamber UI from
-`127.0.0.1:4096`. One openchamber instance, three reachability paths, single
+`127.0.0.1:57123`. One openchamber instance, three reachability paths, single
 laptop-side matcher (`http://openchamber.homelab`).
 
 The `header_up Host openchamber.homelab` directive in the homelab Caddyfile
@@ -215,7 +215,7 @@ The laptop Caddyfile lives at `../caddy/Caddyfile`:
 { auto_https off; admin off }
 
 http://openchamber.homelab {
-    reverse_proxy 127.0.0.1:4096
+    reverse_proxy 127.0.0.1:57123
 }
 ```
 
@@ -345,20 +345,20 @@ laptop's Caddy           homelab's Caddy
  openchamber.homelab)         │
    │                          ▼
    ▼                     header_up Host openchamber.homelab
-127.0.0.1:4096                │
+127.0.0.1:57123                │
 (openchamber                  ▼
- LaunchAgent)            laptop:80 (via macbook-arena.homelab -> .2)
+  desktop app)          laptop:80 (via macbook-arena.homelab -> .2)
                               │
                               ▼
                          laptop's Caddy
                               │
                               ▼
-                         127.0.0.1:4096
-                         (openchamber LaunchAgent)
+                         127.0.0.1:57123
+                         (OpenChamber desktop app)
 ```
 
-Three independent paths, all terminating at the openchamber LaunchAgent on this
-laptop. If `openchamber/start.sh` isn't running, all of them break.
+Three independent paths, all terminating at the OpenChamber desktop app on this
+laptop. If the OpenChamber desktop app isn't running, all of them break.
 
 ### Related Twingate resources
 
@@ -395,8 +395,8 @@ docker compose logs -f --tail 50
 
 ## Related
 
-- `caddy/Caddyfile` — the laptop's own Caddyfile (proxies `openchamber.homelab` and the laptop IPs to `127.0.0.1:4096`)
-- `openchamber/` — the LaunchAgent that keeps openchamber running on the laptop
+- `caddy/Caddyfile` — the laptop's own Caddyfile (proxies `openchamber.homelab` and the laptop IPs to `127.0.0.1:57123`)
+- `openchamber/` — notes on the OpenChamber desktop-app server the laptop Caddy proxies to
 - `homelab-publish/` — the LaunchAgent that publishes the laptop IP to homelab dnsmasq
 - `twingate/README.md` — Twingate connector setup, resources, network IDs
 - `dns/homelab` — the `nameserver 192.168.1.222` line for clients that need `*.homelab` resolution
