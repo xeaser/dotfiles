@@ -25,7 +25,7 @@ Source (this repo) and runtime (not in git) are split:
 Files here:
 
 - `serve_logged.py`: wraps the upstream `create_app` and appends one JSON line per
-  classification to `$STRANDS_HOME/systemone.jsonl`. Warms the model before listening.
+  classification to `$STRANDS_HOME/systemone.json`. Warms the model before listening.
 - `run-strands`: LaunchAgent entry point (sets `HF_HOME`, execs the venv python).
 - `dev.openchamber.strands-decider-classifier.plist`: label is chosen to be
   recognisable under System Settings → General → Login Items & Extensions.
@@ -75,14 +75,15 @@ every 30 s until it appears.
 
 ## Reading the log
 
-`$STRANDS_HOME/systemone.jsonl` has `ts`, `elapsed_ms`, `request` (state and
-questions) and `response` (choice, per-option probabilities, confidence):
+`$STRANDS_HOME/systemone.json` is a single valid JSON array, newest entry first
+(index 0), capped at 2000 entries (`MAX_LOG_ENTRIES`). Each entry has `ts`,
+`elapsed_ms`, `request` (state and questions) and `response` (choice, per-option
+probabilities, confidence). The file is rewritten atomically on every call.
 
 ```bash
 python3 - <<'EOF'
 import json
-for l in open("/Volumes/Work/Model/strands/systemone.jsonl"):
-    r = json.loads(l)
+for r in json.load(open("/Volumes/Work/Model/strands/systemone.json"))[:20]:
     st = r["request"].get("state", "")
     st = st if isinstance(st, str) else json.dumps(st)
     ans = {q: (a.get("choice"), a.get("confidence")) for q, a in r["response"].get("answers", {}).items()}
