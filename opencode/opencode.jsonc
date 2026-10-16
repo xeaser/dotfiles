@@ -310,9 +310,19 @@
         "apiKey": "dummy"
       },
       "models": {
+        // AWS Bedrock Mantle us-east-1 rates in USD per 1M tokens (short context).
+        // OpenCode's static rates cannot model AWS's higher rates above 272K input tokens.
         "gpt-6.1-sol": {
           "name": "GPT-6.1 Sol (Mantle)",
           "modelID": "openai.gpt-6.1-sol",
+          "cost": {
+            "input": 2.2,
+            "output": 11,
+            "cache": {
+              "read": 0.11,
+              "write": 2.75
+            }
+          },
           "limit": {
             "context": 1000000,
             "output": 65536
@@ -356,6 +366,14 @@
         "gpt-6.1-sol-ultrafast": {
           "name": "GPT-6.1 Sol Ultrafast (Mantle)",
           "modelID": "openai.gpt-6.1-sol",
+          "cost": {
+            "input": 13.2,
+            "output": 66,
+            "cache": {
+              "read": 0.66,
+              "write": 16.5
+            }
+          },
           "limit": {
             "context": 1000000,
             "output": 65536
@@ -400,6 +418,14 @@
         "gpt-6-sol": {
           "name": "GPT-6 Sol (Mantle)",
           "modelID": "openai.gpt-6-sol",
+          "cost": {
+            "input": 2.2,
+            "output": 11,
+            "cache": {
+              "read": 0.22,
+              "write": 2.75
+            }
+          },
           "limit": {
             "context": 1000000,
             "output": 65536
@@ -443,6 +469,14 @@
         "gpt-6-luna": {
           "name": "GPT-6 Luna (Mantle)",
           "modelID": "openai.gpt-6-luna",
+          "cost": {
+            "input": 0.11,
+            "output": 0.55,
+            "cache": {
+              "read": 0.011,
+              "write": 0.1375
+            }
+          },
           "limit": {
             "context": 1000000,
             "output": 65536
