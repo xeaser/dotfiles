@@ -1,4 +1,5 @@
 {
+  "instructions": ["~/.config/opencode/aws-rules.md"],
   "plugins": [
     // "oh-my-openagent@latest",
     "@tarquinen/opencode-dcp@latest",
@@ -57,13 +58,13 @@
         "type": "local",
         "command": [
           "uvx",
-          "mcp-proxy-for-aws@1.6.4",
+          "mcp-proxy-for-aws@1.7.0",
           "https://aws-mcp.us-east-1.api.aws/mcp",
           "--metadata",
           "AWS_REGION=us-east-1"
         ],
         "environment": {
-          "AWS_PROFILE": "cb-factory",
+          "AWS_MCP_PROXY_PROFILES": "aws-agent",
           "UV_CACHE_DIR": "/Volumes/Work/.cache/uv"
         },
         "disabled": false
