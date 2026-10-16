@@ -1,11 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/Opencode-DCP/opencode-dynamic-context-pruning/master/dcp.schema.json",
   "compress": {
-    "maxContextLimit": "70%",
-    "minContextLimit": "45%",
+    "maxContextLimit": "85%",
+    "minContextLimit": "80%",
     "nudgeFrequency": 8,
     "nudgeForce": "soft",
-    "iterationNudgeThreshold": 20,
+    "iterationNudgeThreshold": 50,
     "summaryBuffer": true
   },
   "turnProtection": {

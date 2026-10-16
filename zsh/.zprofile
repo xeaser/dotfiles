@@ -8,3 +8,5 @@
 # Re-running the builder restores precedence. Idempotent: `typeset -U path`
 # keeps the leftmost copy, so no duplicates accumulate.
 (( $+functions[dotfiles_path] )) && dotfiles_path
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
