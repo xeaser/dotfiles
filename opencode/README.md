@@ -1,5 +1,10 @@
 # opencode
 
+The V2 terminal UI uses the built-in dark `gruvbox` theme from `cli.json`.
+Kitty already provides the matching ANSI palette and 82% blurred window
+background; OpenCode supplies its own solid Gruvbox panels and high-contrast
+text. No second transparency layer or terminal palette override is needed.
+
 [opencode](https://opencode.ai/) is an AI coding assistant that runs in the terminal, with support for MCP servers, custom skills, commands, and agent model routing.
 
 ## Tracked Files

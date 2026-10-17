@@ -307,6 +307,14 @@ fi
 mkdir -p "$HOME/.config/kitty" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/kitty/kitty.conf"        "$HOME/.config/kitty/kitty.conf"
 
+# Zed: link settings only; keep conversations, themes, and other app data local.
+mkdir -p "$HOME/.config/zed" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/zed/settings.json"         "$HOME/.config/zed/settings.json"
+
+# OpenChamber: link the theme only. The app atomically replaces settings files.
+mkdir -p "$HOME/.config/openchamber/themes" 2>/dev/null || true
+backup_and_link "$DOTFILES_DIR/openchamber/themes/gruvbox-glass-dark.json" "$HOME/.config/openchamber/themes/gruvbox-glass-dark.json"
+
 # herdr (agent multiplexer — parallel trial alongside tmux/superset)
 mkdir -p "$HOME/.config/herdr" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/herdr/config.toml"       "$HOME/.config/herdr/config.toml"

@@ -24,6 +24,9 @@ opencode/*.lock
 opencode/*.lockb
 opencode/*.map
 
+# OpenChamber settings include a local UI password and client token.
+openchamber/settings.json
+
 # nvim
 nvim/lazyvim.json
 nvim/lua/local/

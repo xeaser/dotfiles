@@ -1,4 +1,5 @@
 {
+  "$schema": "https://opencode.ai/config.json",
   "instructions": ["~/.config/opencode/aws-rules.md"],
   "plugins": [
     // "oh-my-openagent@latest",

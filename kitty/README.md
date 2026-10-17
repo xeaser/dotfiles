@@ -10,11 +10,13 @@ Gruvbox dark via `theme.conf` (managed by `kitty +kitten themes`).
 
 | Setting | Value |
 |---------|-------|
-| Font size | 12.0 |
-| Window margin | 10 |
+| Font size | 17 |
+| Window margin | 14 |
+| Background | Gruvbox dark, 82% opacity, macOS blur radius 30 |
+| Tab bar | Dark base with lighter active tab |
 | Tab bar style | Powerline (slanted) |
 | Option as Alt | Yes (macOS) |
-| Window decorations | Titlebar only (hidden) |
+| Window decorations | System default |
 | Scrollback | 10,000 lines |
 | Audio bell | Disabled |
 | Cursor | Beam |
