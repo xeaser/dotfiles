@@ -105,7 +105,13 @@ opencode() {
 # alias opencode-dev="AWS_PROFILE=cb-bedrock ~/.local/bin/opencode-dev"
 alias jira='jiratui ui'
 alias mcpinspect='npx @modelcontextprotocol/inspector'
-alias tdaily='tmux new-session -A -s daily'
+tdaily() {
+  if ! tmux has-session -t daily 2>/dev/null; then
+    tmux new-session -d -s daily || return 1
+    ~/.tmux/plugins/tmux-resurrect/scripts/restore.sh >/dev/null 2>&1
+  fi
+  tmux attach -t daily
+}
 alias hd='herdr'
 if [[ "$(uname)" == "Darwin" ]]; then
     alias toggleNotch=$'open \'xyz.kondor.znotch://v1/manage?action=toggle'\'
