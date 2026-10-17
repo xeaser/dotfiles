@@ -6,6 +6,12 @@
 
 **gruvbox-material** (hard background, material foreground) with extensive highlight overrides for NeoTree, bufferline, floats, diagnostics, indent guides, and more. Also includes catppuccin, kanagawa, everforest, and onedark as lazy-loaded alternatives.
 
+The editor, sidebar, statusline, and bufferline are transparent
+(`gruvbox_material_transparent_background = 2`) so the terminal's blurred
+background shows through in Kitty and Zed. Floats, popups, and completion menus
+stay solid for readability. Set `local transparent = false` in
+`lua/plugins/colorscheme.lua` to restore the solid two-tone layout.
+
 ## Plugins
 
 | Plugin | Description |

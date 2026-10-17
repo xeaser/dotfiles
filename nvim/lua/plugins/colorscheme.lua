@@ -41,11 +41,15 @@ return {
       vim.g.gruvbox_material_foreground = "material"
       vim.g.gruvbox_material_better_performance = 1
       vim.g.gruvbox_material_enable_italic = 1
+      -- Let the terminal's blurred background (Kitty, Zed) show through.
+      -- Floats, popups and completion menus stay solid for readability.
+      local transparent = true
+      vim.g.gruvbox_material_transparent_background = transparent and 2 or 0
 
       vim.api.nvim_create_autocmd("ColorScheme", {
         pattern = "gruvbox-material",
         callback = function()
-          local sidebar = "#141617"
+          local sidebar = transparent and "NONE" or "#141617"
           local bg = "#1d2021"
           local bg_dim = "#191b1c"
           local surface = "#282828"
@@ -57,8 +61,8 @@ return {
           -- NeoTree sidebar: darker than editor
           vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = sidebar, fg = fg })
           vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = sidebar, fg = fg_dim })
-          vim.api.nvim_set_hl(0, "NeoTreeEndOfBuffer", { bg = sidebar, fg = sidebar })
-          vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = sidebar, bg = sidebar })
+          vim.api.nvim_set_hl(0, "NeoTreeEndOfBuffer", { bg = sidebar, fg = transparent and bg or sidebar })
+          vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = transparent and border or sidebar, bg = sidebar })
           vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = surface })
           vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = accent })
           vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = accent })
@@ -92,7 +96,7 @@ return {
           vim.api.nvim_set_hl(0, "PmenuSbar", { bg = bg_dim })
 
           -- Bufferline area: darker than NeoTree sidebar
-          local bufbar = "#101112"
+          local bufbar = transparent and "NONE" or "#101112"
           vim.api.nvim_set_hl(0, "TabLine", { bg = bufbar, fg = fg_dim })
           vim.api.nvim_set_hl(0, "TabLineFill", { bg = bufbar })
           vim.api.nvim_set_hl(0, "TabLineSel", { bg = bg, fg = fg, bold = true })
@@ -104,9 +108,10 @@ return {
           vim.api.nvim_set_hl(0, "BufferLineTab", { bg = bufbar, fg = fg_dim })
           vim.api.nvim_set_hl(0, "BufferLineTabSelected", { bg = bg, fg = fg, bold = true })
           vim.api.nvim_set_hl(0, "BufferLineTabClose", { bg = bufbar, fg = fg_dim })
-          vim.api.nvim_set_hl(0, "BufferLineSeparator", { bg = bufbar, fg = bufbar })
-          vim.api.nvim_set_hl(0, "BufferLineSeparatorVisible", { bg = sidebar, fg = sidebar })
-          vim.api.nvim_set_hl(0, "BufferLineSeparatorSelected", { bg = bg, fg = bufbar })
+          local sep = transparent and border or bufbar
+          vim.api.nvim_set_hl(0, "BufferLineSeparator", { bg = bufbar, fg = sep })
+          vim.api.nvim_set_hl(0, "BufferLineSeparatorVisible", { bg = sidebar, fg = transparent and border or sidebar })
+          vim.api.nvim_set_hl(0, "BufferLineSeparatorSelected", { bg = bg, fg = sep })
           vim.api.nvim_set_hl(0, "BufferLineIndicatorSelected", { fg = accent, bg = bg })
           vim.api.nvim_set_hl(0, "BufferLineModified", { fg = accent, bg = bufbar })
           vim.api.nvim_set_hl(0, "BufferLineModifiedSelected", { fg = accent, bg = bg })
@@ -121,12 +126,12 @@ return {
           vim.api.nvim_set_hl(0, "TroubleNormal", { bg = bg_dim })
 
           -- Inlay hints and virtual text: subdued but readable
-          vim.api.nvim_set_hl(0, "LspInlayHint", { fg = "#7c6f64", bg = "#1a1c1d", italic = true })
+          vim.api.nvim_set_hl(0, "LspInlayHint", { fg = "#7c6f64", bg = transparent and "NONE" or "#1a1c1d", italic = true })
           vim.api.nvim_set_hl(0, "LspCodeLens", { fg = "#7c6f64", italic = true })
-          vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = "#6e6763", bg = "#1a1c1d" })
-          vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = "#689d6a", bg = "#1a1c1d" })
-          vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "#b47109", bg = "#1c1a17" })
-          vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = "#c14a4a", bg = "#1c1717" })
+          vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = "#6e6763", bg = transparent and "NONE" or "#1a1c1d" })
+          vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = "#689d6a", bg = transparent and "NONE" or "#1a1c1d" })
+          vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "#b47109", bg = transparent and "NONE" or "#1c1a17" })
+          vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = "#c14a4a", bg = transparent and "NONE" or "#1c1717" })
 
           -- Noice cmdline
           vim.api.nvim_set_hl(0, "NoiceCmdline", { bg = bg })
