@@ -307,9 +307,10 @@ fi
 mkdir -p "$HOME/.config/kitty" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/kitty/kitty.conf"        "$HOME/.config/kitty/kitty.conf"
 
-# Zed: link settings only; keep conversations, themes, and other app data local.
+# Zed: link settings and keymap; keep conversations, themes, and other app data local.
 mkdir -p "$HOME/.config/zed" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/zed/settings.json"         "$HOME/.config/zed/settings.json"
+backup_and_link "$DOTFILES_DIR/zed/keymap.json"           "$HOME/.config/zed/keymap.json"
 
 # OpenChamber: link the theme only. The app atomically replaces settings files.
 mkdir -p "$HOME/.config/openchamber/themes" 2>/dev/null || true

@@ -1,0 +1,11 @@
+[
+  {
+    "context": "Editor && mode == full",
+    "unbind": {
+      "cmd-\\": "assistant::InlineAssist"
+    },
+    "bindings": {
+      "ctrl-enter": "assistant::InlineAssist"
+    }
+  }
+]
