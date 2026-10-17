@@ -1,9 +1,12 @@
 # opencode
 
-The V2 terminal UI uses the built-in dark `gruvbox` theme from `cli.json`.
-Kitty already provides the matching ANSI palette and 82% blurred window
-background; OpenCode supplies its own solid Gruvbox panels and high-contrast
-text. No second transparency layer or terminal palette override is needed.
+The V2 terminal UI uses the custom dark `gruvbox-glass` theme
+(`themes/gruvbox-glass.json`, selected in `cli.json`). It is the built-in
+`gruvbox` theme with the main background set to `none`, so the terminal's own
+background (Kitty's 82% blur, Zed's translucent terminal) shows through.
+Dialogs and panels stay solid `#1d2021`/`#3c3836` for readability, and muted
+text is raised to `#bdae93`. In terminals with opaque windows (VS Code,
+OpenChamber, Terminal.app) it simply shows that terminal's background color.
 
 [opencode](https://opencode.ai/) is an AI coding assistant that runs in the terminal, with support for MCP servers, custom skills, commands, and agent model routing.
 

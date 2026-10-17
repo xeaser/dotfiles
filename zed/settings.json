@@ -271,8 +271,8 @@
     "default_model": {
       "effort": "high",
       "enable_thinking": true,
-      "provider": "Codex_Bedrock",
-      "model": "openai.gpt-6-sol",
+      "provider": "amazon-bedrock",
+      "model": "us.anthropic.claude-opus-5-5",
     },
     "inline_assistant_model": {
         "provider": "Codex_Bedrock",
