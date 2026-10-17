@@ -428,7 +428,7 @@ set -g default-terminal "tmux-256color"
 set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @continuum-restore 'on'
+set -g @continuum-restore 'off' # tdaily restores explicitly (see zsh/.zshrc)
 set -g @plugin 'b0o/tmux-autoreload'
 set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
 set -g @plugin 'xamut/tmux-spotify'

@@ -58,7 +58,7 @@ Prefix is `Ctrl+a` (rebound from default `Ctrl+b`).
 Six-window dev session: general shell, k9s, nvim, jira, homelab SSH, opencode.
 
 ```bash
-tdaily    # alias for: tmux new-session -A -s daily
+tdaily    # function in .zshrc: starts daily if missing, restores saved layout, attaches
 ```
 
-The `tdaily` alias in `.zshrc` creates or attaches the `daily` session. tmux-continuum (`@continuum-restore 'on'`) auto-restores the saved window layout on server start via tmux-resurrect.
+The `tdaily` function in `.zshrc` creates the `daily` session if it doesn't exist, restores the saved window layout via tmux-resurrect (`restore.sh`), and attaches. tmux-continuum still auto-saves, but its auto-restore is off (`@continuum-restore 'off'`) so it doesn't race with `tdaily`.
