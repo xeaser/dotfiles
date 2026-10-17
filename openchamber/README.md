@@ -1,5 +1,20 @@
 # openchamber
 
+## Theme
+
+`themes/gruvbox-glass-dark.json` is linked into
+`~/.config/openchamber/themes/` by `install.sh`. Select **Gruvbox Glass** as the
+dark theme in Settings → Appearance; reload themes after editing the file.
+It uses the VS Code Gruvbox palette with explicit two-tone surfaces and readable
+code/diff colors. OpenChamber can import VS Code theme files, but a native
+theme keeps these surface choices stable instead of relying on import-time
+color adjustments. Its desktop window does not gain OS-level blur from a theme.
+
+The app's `settings.json` and `preferences.json` stay local. They contain
+runtime/private state, and OpenChamber atomically replaces them when saving,
+which breaks file-level symlinks. The theme itself is portable; on a new
+machine, select it in Settings → Appearance.
+
 There is no LaunchAgent any more. The server behind every remote path is the
 one embedded in the **OpenChamber desktop app** (`/Applications/OpenChamber.app`),
 listening on `127.0.0.1:57123`.
