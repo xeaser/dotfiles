@@ -324,6 +324,8 @@ if [ -f "$DOTFILES_DIR/git/.gitconfig" ]; then
     backup_and_link "$DOTFILES_DIR/git/.gitconfig"      "$HOME/.gitconfig"
 fi
 backup_and_link "$DOTFILES_DIR/git/.gitignore_global"   "$HOME/.gitignore_global"
+# Global hooks (gitleaks secret scan, then chains to repo-local .git/hooks)
+backup_and_link "$DOTFILES_DIR/git/hooks"               "$HOME/.git-hooks"
 
 mkdir -p "$HOME/.ssh" 2>/dev/null || true
 backup_and_link "$DOTFILES_DIR/git/allowed_signers"     "$HOME/.ssh/allowed_signers"

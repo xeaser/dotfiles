@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# Global git hook dispatcher (core.hooksPath = ~/.git-hooks).
+# Each hook name is a symlink to this file. It runs a gitleaks scan for
+# pre-commit / pre-push, then chains to the repo-local .git/hooks/<name>
+# so per-repo hooks (git-secrets, pre-commit framework, etc.) keep working.
+#
+# Bypass for a single command (humans only): GITLEAKS_SKIP=1 git commit ...
+set -uo pipefail
+
+hook_name="$(basename "$0")"
+zero_re='^0+$'
+
+stdin_data=""
+if [ "$hook_name" = "pre-push" ]; then
+    stdin_data="$(cat)"
+fi
+
+run_gitleaks() {
+    if [ "${GITLEAKS_SKIP:-}" = "1" ]; then
+        echo "gitleaks: skipped (GITLEAKS_SKIP=1)" >&2
+        return 0
+    fi
+    if ! command -v gitleaks >/dev/null 2>&1; then
+        echo "gitleaks: not installed, secret scan skipped (brew install gitleaks)" >&2
+        return 0
+    fi
+    gitleaks git --no-banner --redact --log-level warn "$@"
+}
+
+case "$hook_name" in
+    pre-commit)
+        if ! run_gitleaks --staged; then
+            echo "gitleaks: possible secret in staged changes. Commit blocked." >&2
+            exit 1
+        fi
+        ;;
+    pre-push)
+        remote="${1:-origin}"
+        while read -r local_ref local_sha remote_ref remote_sha; do
+            [ -z "${local_sha:-}" ] && continue
+            [[ "$local_sha" =~ $zero_re ]] && continue
+            if [[ "$remote_sha" =~ $zero_re ]]; then
+                range="$local_sha --not --remotes=$remote"
+            else
+                range="$remote_sha..$local_sha"
+            fi
+            if ! run_gitleaks --log-opts="$range"; then
+                echo "gitleaks: possible secret in commits pushed to $remote_ref. Push blocked." >&2
+                exit 1
+            fi
+        done <<< "$stdin_data"
+        ;;
+esac
+
+local_hook="$(git rev-parse --git-common-dir 2>/dev/null)/hooks/$hook_name"
+if [ -x "$local_hook" ] && [ "$(realpath "$local_hook")" != "$(realpath "$0")" ]; then
+    if [ "$hook_name" = "pre-push" ]; then
+        { [ -n "$stdin_data" ] && printf '%s\n' "$stdin_data"; } | "$local_hook" "$@"
+    else
+        "$local_hook" "$@"
+    fi
+    exit $?
+fi
+exit 0

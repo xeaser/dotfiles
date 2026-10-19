@@ -1,5 +1,6 @@
 [core]
 	excludesFile = ~/.gitignore_global
+	hooksPath = ~/.git-hooks
 [init]
 	templateDir = /Users/psharma/.git-templates/git-secrets
 [secrets]
