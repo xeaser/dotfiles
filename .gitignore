@@ -23,6 +23,9 @@ opencode/mcp/
 opencode/*.lock
 opencode/*.lockb
 opencode/*.map
+# twg CLI-managed skills (symlinks into ~/.config/twg/skills)
+opencode/skills/twg
+opencode/skills/twg-*
 
 # OpenChamber settings include a local UI password and client token.
 openchamber/settings.json
