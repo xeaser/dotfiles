@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "diff_view_style": "unified",
   "default_open_behavior": "existing_window",
   "cli_default_open_behavior": "existing_window",
   "bottom_dock_layout": "full",
@@ -276,7 +277,7 @@
     },
     "inline_assistant_model": {
         "provider": "Codex_Bedrock",
-        "model": "openai.gpt-5.6-sol"
+        "model": "openai.gpt-6.1-sol"
       },
     "model_parameters": [],
   },
