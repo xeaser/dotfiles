@@ -1,6 +1,9 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": ["~/.config/opencode/aws-rules.md", "~/.config/opencode/secrets-rules.md"],
+  "instructions": [
+    "~/.config/opencode/aws-rules.md",
+    "~/.config/opencode/secrets-rules.md"
+  ],
   "permission": {
     "read": {
       "*": "allow",
@@ -154,7 +157,8 @@
           "NEO4J_USERNAME": "neo4j",
           "NEO4J_PASSWORD": "{env:NEO4J_PASSWORD}"
         },
-        "disabled": false
+        "disabled": false,
+        "codemode": true
       },
       "superset": {
         "type": "remote",
@@ -289,6 +293,36 @@
           "CUA_DRIVER_PERMISSION_MODE": "standard"
         },
         "disabled": true
+      },
+      "atlassian": {
+        "type": "remote",
+        "url": "https://mcp.atlassian.com/v2/mcp",
+        "disabled": false,
+        "codemode": true
+      },
+      "aws": {
+        "type": "remote",
+        "url": "https://aws-mcp.us-east-1.api.aws/mcp",
+        "disabled": false
+      },
+      "terraform": {
+        "type": "local",
+        "command": [
+          "docker",
+          "run",
+          "-i",
+          "--rm",
+          "hashicorp/terraform-mcp-server"
+        ],
+        "disabled": true,
+        "timeout": {
+          "startup": 30000
+        }
+      },
+      "context7": {
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp",
+        "disabled": false
       }
     }
   },
