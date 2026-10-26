@@ -1,5 +1,5 @@
 export default {
-  defaultBrowser: "Arc",
+  defaultBrowser: "Dia",
   handlers: [
     {
       match: ["https://docs.google.com/*", "https://calendar.google.com/*", "https://mail.google.com/*", "https://drive.google.com/*", "https://accounts.google.com/*"],
